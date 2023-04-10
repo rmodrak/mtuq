@@ -1,4 +1,5 @@
 
+import glob
 import obspy
 import numpy as np
 
@@ -121,17 +122,14 @@ class Client(ClientBase):
         t2_new = float(station.endtime)
         dt_new = float(station.delta)
 
-        #dep = str(int(round(origin.depth_in_m/1000.)))
-        dep = str(int(np.ceil(origin.depth_in_m/1000.)))
-        #dst = str(int(round(distance_in_m/1000.)))
-        dst = str(int(np.ceil(distance_in_m/1000.)))
+        # FK expects units of kilometers
+        depth = origin.depth_in_m/1000.
+        distance = distance_in_m/1000.
 
         if self.include_mt:
 
             for _i, ext in enumerate(EXTENSIONS):
-                trace = obspy.read('%s/%s_%s/%s.grn.%s' %
-                    (self.path, self.model, dep, dst, ext),
-                    format='sac')[0]
+                trace = read_FK(self.path, self.model, depth, distance, ext)
 
                 trace.stats.channel = CHANNELS[_i]
                 trace.stats._component = CHANNELS[_i][0]
@@ -165,4 +163,34 @@ class Client(ClientBase):
 
 
 
+def _check_glob(wildcard):
+        if len(glob.glob(wildcard)) > 0:
+            return True
+        else:
+            return False
+
+
+def read_FK(path, model, depth, distance, ext='0'):
+
+    for dep, dst in (
+        (int(np.ceil(depth)),   int(np.ceil(distance))),
+        (int(np.ceil(depth))-1, int(np.ceil(distance))),
+        (int(np.ceil(depth)),   int(np.ceil(distance))-1),
+        (int(np.ceil(depth)),   int(np.ceil(distance))+1),
+        (int(np.ceil(depth)),   int(np.ceil(distance))-2),
+        (int(np.ceil(depth)),   int(np.ceil(distance))+2),
+        ):
+
+        wildcard = '%s/%s_%s/%s.grn.?' % (path, model, dep, dst)
+        if _check_glob(wildcard):
+            break
+        else:
+            print('File not found: %s' % wildcard)
+
+    else:
+        raise FileNotFoundError
+
+    return obspy.read('%s/%s_%s/%s.grn.%s' %
+        (path, model, dep, dst, ext),
+        format='sac')[0]
 

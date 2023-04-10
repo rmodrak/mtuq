@@ -8,6 +8,7 @@ from copy import deepcopy
 from obspy import taup
 from obspy.geodetics import gps2dist_azimuth
 from os.path import basename, exists
+from mtuq.io.clients.FK_SAC import read_FK
 from mtuq.util import AttribDict, warn
 from mtuq.util.cap import WeightParser, taper
 from mtuq.util.signal import cut, get_arrival, m_to_deg
@@ -487,12 +488,12 @@ class ProcessData(object):
 
 
             elif self.pick_type=='FK_metadata':
-                sac_headers = obspy.read('%s/%s_%s/%s.grn.0' %
-                    (self.FK_database,
-                     self.FK_model,
-                     str(int(np.ceil(origin.depth_in_m/1000.))),
-                     str(int(np.ceil(distance_in_m/1000.)))),
-                    format='sac')[0].stats.sac
+                trace = read_FK(
+                    self.FK_database,
+                    self.FK_model,
+                    int(np.ceil(origin.depth_in_m/1000.)),
+                    int(np.ceil(distance_in_m/1000.)))
+                sac_headers = trace.stats.sac
                 picks['P'] = sac_headers.t1
                 picks['S'] = sac_headers.t2
 
