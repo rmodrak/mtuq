@@ -3,7 +3,7 @@ Plotting trace attributes
 =========================
 
 
-To calculate time shifts, amplitude ratios and other `trace attributes <https://uafgeotools.github.io/mtuq/user_guide/06/trace_attributes.html>`_, the misfit functions's `collect_attributes` method can be invoked using the same arguments as an ordinary misfit function evaluation:
+To calculate time shifts, amplitude ratios and other `trace attributes <https://mtuqorg.github.io/mtuq/user_guide/06/trace_attributes.html>`_, the misfit functions's `collect_attributes` method can be invoked using the same arguments as an ordinary misfit function evaluation:
 
 .. code::
 
@@ -13,7 +13,7 @@ To calculate time shifts, amplitude ratios and other `trace attributes <https://
 Plotting time shifts
 --------------------
 
-Following `Zhao1994 <https://uafgeotools.github.io/mtuq/references.html>`_, moment tensor inversions commonly use time shifts to mitigate velocity model inaccuracy.  To understand such effects, it can be helpful to plot how time shifts vary geographically and by component.
+Following `Zhao1994 <https://mtuqorg.github.io/mtuq/references.html>`_, moment tensor inversions commonly use time shifts to mitigate velocity model inaccuracy.  To understand such effects, it can be helpful to plot how time shifts vary geographically and by component.
 
 
 To plot time shifts, the `attrs` data structure above can be passed directly to a plotting function:
@@ -48,7 +48,7 @@ As a result, an image like the following will be created for each component:
 Plotting custom attributes
 --------------------------
 
-It is possible to add `custom attributes <https://uafgeotools.github.io/mtuq/user_guide/06/trace_attributes.html#custom-trace-attributes>`_ to the data structure returned by `collect_attributes`. 
+It is possible to add `custom attributes <https://mtuqorg.github.io/mtuq/user_guide/06/trace_attributes.html#custom-trace-attributes>`_ to the data structure returned by `collect_attributes`. 
 
 To plot how a custom attribute varies, we can use the private function `_plot_attrs`:
 
@@ -64,5 +64,5 @@ To plot how a custom attribute varies, we can use the private function `_plot_at
 Source code
 -----------
 
-The above figures can be reproduced by running `DetailedAnalysis.py <https://github.com/uafgeotools/mtuq/blob/master/examples/DetailedAnalysis.py>`_.
+The above figures can be reproduced by running `DetailedAnalysis.py <https://github.com/mtuqorg/mtuq/blob/master/examples/DetailedAnalysis.py>`_.
 

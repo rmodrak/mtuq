@@ -35,7 +35,7 @@ For a grid of regulary-spaced forces, `ds` may look something like:
 
 .. note::
 
-    Force grids are implemented using parameters `F0, phi, h`, which are related to `r, phi, theta` spherical coordinates (`physics convention <https://en.wikipedia.org/wiki/Spherical_coordinate_system>`_) by `F0 = r`, `phi = phi`, `h = cos(theta)`.  In addition, `F0, phi, h` are related to geographic directions by these `formulas <https://uafgeotools.github.io/mtuq/_modules/mtuq/util/math.html#to_rtp>`_.
+    Force grids are implemented using parameters `F0, phi, h`, which are related to `r, phi, theta` spherical coordinates (`physics convention <https://en.wikipedia.org/wiki/Spherical_coordinate_system>`_) by `F0 = r`, `phi = phi`, `h = cos(theta)`.  In addition, `F0, phi, h` are related to geographic directions by these `formulas <https://mtuqorg.github.io/mtuq/_modules/mtuq/util/math.html#to_rtp>`_.
 
 
 Misfit values
@@ -87,8 +87,8 @@ To see how the magnitude of the best-fitting force varies with respect to orient
 Source code
 """""""""""
 
-[`script to reproduce above figures <https://github.com/uafgeotools/mtuq/blob/master/docs/user_guide/05/code/gallery_force.py>`_]
+[`script to reproduce above figures <https://github.com/mtuqorg/mtuq/blob/master/docs/user_guide/05/code/gallery_force.py>`_]
 
-Users can run the script immediately after `installing MTUQ <https://uafgeotools.github.io/mtuq/install/index.html>`_, without any additional setup.
+Users can run the script immediately after `installing MTUQ <https://mtuqorg.github.io/mtuq/install/index.html>`_, without any additional setup.
 
 

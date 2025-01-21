@@ -15,7 +15,7 @@ Download the MTUQ source code:
 
 .. code::
 
-   git clone https://github.com/uafgeotools/mtuq.git
+   git clone https://github.com/mtuqorg/mtuq.git
    cd mtuq
 
 
@@ -43,11 +43,11 @@ Finally, install PyGMT:
 
 .. note::
 
-    PyGMT installation has been finicky at times, so we include it as a separate step after the main env.yaml-based installation. Most MTUQ functions will continue to work without PyGMT. (`See here <https://uafgeotools.github.io/mtuq/install/issues.html#pygmt-installation>`_ for more information.)
+    PyGMT installation has been finicky at times, so we include it as a separate step after the main env.yaml-based installation. Most MTUQ functions will continue to work without PyGMT. (`See here <https://mtuqorg.github.io/mtuq/install/issues.html#pygmt-installation>`_ for more information.)
 
 
 **Troubleshooting**
 
-For troubleshooting common installation issues, please `see here <https://uafgeotools.github.io/mtuq/install/issues.html>`_.
+For troubleshooting common installation issues, please `see here <https://mtuqorg.github.io/mtuq/install/issues.html>`_.
 
 

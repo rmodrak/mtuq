@@ -13,9 +13,9 @@ By combining Green's functions, it is possible to obtain synthetics from any mom
 `GreensTensor` objects
 ----------------------
 
-`GreensTensor <https://uafgeotools.github.io/mtuq/library/generated/mtuq.GreensTensor.html>`_ objects provide access to a set of Green's functions describing the medium response between a given hypocenter and station.
+`GreensTensor <https://mtuqorg.github.io/mtuq/library/generated/mtuq.GreensTensor.html>`_ objects provide access to a set of Green's functions describing the medium response between a given hypocenter and station.
 
-Methods built into the `GreensTensor` class allow data processing and synthetics generation.  In particular, the `get_synthetics <https://uafgeotools.github.io/mtuq/library/generated/mtuq.GreensTensor.get_synthetics.html#mtuq.GreensTensor.get_synthetics>`_ method accepts a `MomentTensor` or `Force` and returns corresponding synthetics.
+Methods built into the `GreensTensor` class allow data processing and synthetics generation.  In particular, the `get_synthetics <https://mtuqorg.github.io/mtuq/library/generated/mtuq.GreensTensor.get_synthetics.html#mtuq.GreensTensor.get_synthetics>`_ method accepts a `MomentTensor` or `Force` and returns corresponding synthetics.
 
 
 
@@ -24,7 +24,7 @@ Green's function conventions
 
 A major goal of MTUQ is to avoid exposing users to unnecessary complexity. For Green's functions, MTUQ tries to accomplish this by understanding external conventions and converting to a common internal format.  Specifically, MTUQ uses an `up-south-east` `convention <https://docs.obspy.org/packages/autogen/obspy.imaging.mopad_wrapper.beach.html#supported-basis-systems>`_ for internally storing impulse responses corresponding to  individual force couples. (Moment tensors and forces are internally represented using the same `up-south-east` basis.)
 
-Under the hood, MTUQ deals with a variety of external conventions related to (1) the symmetry of the medium (for example, 1D media require fewer independent Green's functions than 3D media); (2) the choice of local Cartesian basis convention (for example, some authors employ `up-south-east`, others `north-east-down`). A sense of what's involved can be obtained by browsing the `source code <https://github.com/uafgeotools/mtuq/tree/master/mtuq/greens_tensor>`_ and references therein.
+Under the hood, MTUQ deals with a variety of external conventions related to (1) the symmetry of the medium (for example, 1D media require fewer independent Green's functions than 3D media); (2) the choice of local Cartesian basis convention (for example, some authors employ `up-south-east`, others `north-east-down`). A sense of what's involved can be obtained by browsing the `source code <https://github.com/mtuqorg/mtuq/tree/master/mtuq/greens_tensor>`_ and references therein.
 
 
 
@@ -74,7 +74,7 @@ To open an FK database client in MTUQ:
 
 
 
-Once opened, an AxiSEM or FK database client can be used to generate `GreensTensor <https://uafgeotools.github.io/mtuq/library/generated/mtuq.GreensTensor.html>`_ objects as follows:
+Once opened, an AxiSEM or FK database client can be used to generate `GreensTensor <https://mtuqorg.github.io/mtuq/library/generated/mtuq.GreensTensor.html>`_ objects as follows:
 
 .. code::
 
@@ -123,7 +123,7 @@ To open a SPECFEM3D/3D_GLOBE database client:
    db = open_db(path_SPECFEM3D_output_directory, format="SPECFEM3D")
 
 
-Once opened, the database client can be used to generate `GreensTensor <https://uafgeotools.github.io/mtuq/library/generated/mtuq.GreensTensor.html>`_ objects as follows:
+Once opened, the database client can be used to generate `GreensTensor <https://mtuqorg.github.io/mtuq/library/generated/mtuq.GreensTensor.html>`_ objects as follows:
 
 .. code::
 
@@ -132,7 +132,7 @@ Once opened, the database client can be used to generate `GreensTensor <https://
 
 For more information, see also:
 
-`Source-side Green's function details (under construction) <https://uafgeotools.github.io/mtuq/user_guide/03/source_side.html>`_
+`Source-side Green's function details (under construction) <https://mtuqorg.github.io/mtuq/user_guide/03/source_side.html>`_
 
-`Receiver-side Green's function details (under construction) <https://uafgeotools.github.io/mtuq/user_guide/03/receiver_side.html>`_
+`Receiver-side Green's function details (under construction) <https://mtuqorg.github.io/mtuq/user_guide/03/receiver_side.html>`_
 

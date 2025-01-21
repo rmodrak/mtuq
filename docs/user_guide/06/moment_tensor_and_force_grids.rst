@@ -6,19 +6,19 @@ Moment tensor and force grids
 Currently implemented moment tensor grids
 -----------------------------------------
 
-- `Randomly-drawn full moment tensors <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.FullMomentTensorGridRandom.html>`_
-- `Regularly-spaced full moment tensors <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.FullMomentTensorGridSemiregular.html>`_
-- `Randomly-drawn double couples <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.DoubleCoupleGridRandom.html>`_
-- `Regularly-spaced double couples <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.DoubleCoupleGridRegular.html>`_
-- `Randomly-drawn deviatoric moment tensors <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.DeviatoricGridRandom.html>`_
-- `Regularly-spaced deviatoric moment tensors <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.DeviatoricGridSemiregular.html>`_
+- `Randomly-drawn full moment tensors <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.FullMomentTensorGridRandom.html>`_
+- `Regularly-spaced full moment tensors <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.FullMomentTensorGridSemiregular.html>`_
+- `Randomly-drawn double couples <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.DoubleCoupleGridRandom.html>`_
+- `Regularly-spaced double couples <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.DoubleCoupleGridRegular.html>`_
+- `Randomly-drawn deviatoric moment tensors <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.DeviatoricGridRandom.html>`_
+- `Regularly-spaced deviatoric moment tensors <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.DeviatoricGridSemiregular.html>`_
 
 
 Currently implemented force grids
 ---------------------------------
 
-- `Randomly-drawn forces <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.ForceGridRandom.html>`_
-- `Regularly-spaced forces <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.ForceGridRegular.html>`_
+- `Randomly-drawn forces <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.ForceGridRandom.html>`_
+- `Regularly-spaced forces <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.ForceGridRegular.html>`_
 
 
 
@@ -45,12 +45,12 @@ Force grids created in the above manner can be iterated over like a NumPy array 
 More details
 ------------
 
-For additional usage information, see `Grid <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.Grid.html>`_ for regularly-spaced grids or `UnstructuredGrid <https://uafgeotools.github.io/mtuq/library/generated/mtuq.grid.UnstructuredGrid.html>`_ for randomly-drawn grids.
+For additional usage information, see `Grid <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.Grid.html>`_ for regularly-spaced grids or `UnstructuredGrid <https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid.UnstructuredGrid.html>`_ for randomly-drawn grids.
 
-Moment tensor grids are implemented using the `rho, v, w, kappa, sigma, h` parameterization from `Tape2015 <https://uafgeotools.github.io/mtuq/references.html>`_.  
+Moment tensor grids are implemented using the `rho, v, w, kappa, sigma, h` parameterization from `Tape2015 <https://mtuqorg.github.io/mtuq/references.html>`_.  
 
-Force grids are implemented using parameters `F0, phi, h`, which are related to `r, phi, theta` spherical coordinates (physics convention) by `F0 = r`, `phi = phi`, `h = cos(theta)`.  In addition, `F0, phi, h` are related to geographic directions by these `formulas <https://uafgeotools.github.io/mtuq/_modules/mtuq/util/math.html#to_rtp>`_.
+Force grids are implemented using parameters `F0, phi, h`, which are related to `r, phi, theta` spherical coordinates (physics convention) by `F0 = r`, `phi = phi`, `h = cos(theta)`.  In addition, `F0, phi, h` are related to geographic directions by these `formulas <https://mtuqorg.github.io/mtuq/_modules/mtuq/util/math.html#to_rtp>`_.
 
-Random moment tensors are drawn from the uniform distributions described by `Tape2015 <https://uafgeotools.github.io/mtuq/references.html>`_.
+Random moment tensors are drawn from the uniform distributions described by `Tape2015 <https://mtuqorg.github.io/mtuq/references.html>`_.
 
 

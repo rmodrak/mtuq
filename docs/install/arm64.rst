@@ -23,7 +23,7 @@ Download the MTUQ source code:
 
 .. code::
 
-   git clone https://github.com/uafgeotools/mtuq.git
+   git clone https://github.com/mtuqorg/mtuq.git
    cd mtuq
 
 

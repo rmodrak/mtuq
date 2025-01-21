@@ -11,7 +11,7 @@ Source-side 3D Green's functions
 Generating source-side 3D Green's functions using SPECFEM3D/3D_GLOBE
 --------------------------------------------------------------------
 
-In principle, any 3D solver can be used to generate source-side Green's functions, as long as the `requirements  <https://uafgeotools.github.io/mtuq/user_guide/03/source_side.html#requirements-for-mtuq-source-side-green-s-functions>`_ below are satisfied.  
+In principle, any 3D solver can be used to generate source-side Green's functions, as long as the `requirements  <https://mtuqorg.github.io/mtuq/user_guide/03/source_side.html#requirements-for-mtuq-source-side-green-s-functions>`_ below are satisfied.  
 
 So far, however, the machinery has only been tested using SPECFEM3D/3D_GLOBE.  To convert SPECFEM3D/3D_GLOBE output to MTUQ-compliant Green's functions, the following steps are necessary.
 
@@ -127,13 +127,13 @@ The corresponding convention for force responses is:
 Origin time convention
 ......................
 
-For origin time, MTUQ uses a centroid convention (`more details <https://github.com/uafgeotools/mtuq/issues/140>`_), so that `t=0` in the `GreensTensor` time discretization corresponds to mean source excitation time.
+For origin time, MTUQ uses a centroid convention (`more details <https://github.com/mtuqorg/mtuq/issues/140>`_), so that `t=0` in the `GreensTensor` time discretization corresponds to mean source excitation time.
 
 MTUQ uses the begin time (`B`) and end time (`E`) headers from the SAC binary files to align the Green's functions relative to centroid origin time.  
 
 Currently, these are the only SAC headers used in reading Green's functions.
 
-(Note that different `SAC headers <https://ds.iris.edu/files/sac-manual/manual/file_format.html>`_ are required in reading `observed data <https://uafgeotools.github.io/mtuq/user_guide/02.html#file-format-metadata-and-data-processing-requirements>`_.)
+(Note that different `SAC headers <https://ds.iris.edu/files/sac-manual/manual/file_format.html>`_ are required in reading `observed data <https://mtuqorg.github.io/mtuq/user_guide/02.html#file-format-metadata-and-data-processing-requirements>`_.)
 
 
 
@@ -142,7 +142,7 @@ Hypocenter searches (experimental)
 
 Currently, only searches over source depth are possible with source-side 3D Green's functions (no other hypocenter parameters).
 
-The current `depth search <https://github.com/uafgeotools/mtuq/blob/568e49a73817e4e2dbab1189210214da6906266f/mtuq/io/clients/SPECFEM3D_SAC.py#L117>`_ implementation is especially crude and experimental (consider local modifications to suit your needs).
+The current `depth search <https://github.com/mtuqorg/mtuq/blob/568e49a73817e4e2dbab1189210214da6906266f/mtuq/io/clients/SPECFEM3D_SAC.py#L117>`_ implementation is especially crude and experimental (consider local modifications to suit your needs).
 
 To allow depth searches, create subdirectories for each centroid depth as follows:
 

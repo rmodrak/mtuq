@@ -12,7 +12,7 @@ from mtuq.util.math import to_rtp
 
 #
 # see here for usage and other practical information
-# https://uafgeotools.github.io/mtuq/user_guide/06/moment_tensor_and_force_grids.html
+# https://mtuqorg.github.io/mtuq/user_guide/06/moment_tensor_and_force_grids.html
 #
 
 
