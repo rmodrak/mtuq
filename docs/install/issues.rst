@@ -3,6 +3,33 @@ Troubleshooting
 ===============
 
 
+Instaseis installation
+----------------------
+
+MTUQ uses Instaseis for generating synthetic seismograms.
+
+If MTUQ installation fails with an Instaseis error, then we suggest the following workaround:
+
+1. Comment out instaseis in the env.yaml file.
+
+2. Re-try the installation:
+
+.. code::
+
+   conda activate mtuq
+   conda env update --file env.yaml
+
+3. Install gfortran, if not already present.
+
+4. Try Instaseis installation as follows:
+
+.. code::
+
+   CC=gfortran pip install git+https://github.com/rmodrak/instaseis.git
+
+
+
+
 PyGMT installation
 ------------------
 
@@ -48,5 +75,5 @@ Installation on Apple M1 and Apple M2 Macs is now possible using the default ins
 
 For older versions of MTUQ, a modified installation procedure may still be necessary.  For more information, please see:
 
-`MTUQ installation on ARM64 systems <https://uafgeotools.github.io/mtuq/install/arm64.html>`_
+`MTUQ installation on ARM64 systems <https://mtuqorg.github.io/mtuq/install/arm64.html>`_
 
