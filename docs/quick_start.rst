@@ -1,9 +1,9 @@
 Quick start
 ===========
 
-An easy way to get started is to try out these `examples <https://github.com/uafgeotools/mtuq/blob/master/examples>`_, which estimate source parameters for an event from `Silwal2016`.
+An easy way to get started is to try out these `examples <https://github.com/mtuqorg/mtuq/blob/master/examples>`_, which estimate source parameters for an event from `Silwal2016`.
 
-Before running any of the scripts, users must first `install MTUQ <https://uafgeotools.github.io/mtuq/install/index.html>`_.  After installation finishes, examples can be invoked within the `examples/` directory as follows:
+Before running any of the scripts, users must first `install MTUQ <https://mtuqorg.github.io/mtuq/install/index.html>`_.  After installation finishes, examples can be invoked within the `examples/` directory as follows:
 
 .. code::
 
@@ -18,9 +18,9 @@ Before running any of the scripts, users must first `install MTUQ <https://uafge
 Serial example
 --------------
 
-The simplest example is `SerialGridSearch.DoubleCouple.py <https://github.com/uafgeotools/mtuq/blob/master/examples/SerialGridSearch.DoubleCouple.py>`_.  After running the script, users can check their output against this `expected result <https://github.com/rmodrak/mtbench/blob/FiguresSilwal2016/SerialGridSearch.DoubleCouple.png>`_.
+The simplest example is `SerialGridSearch.DoubleCouple.py <https://github.com/mtuqorg/mtuq/blob/master/examples/SerialGridSearch.DoubleCouple.py>`_.  After running the script, users can check their output against this `expected result <https://github.com/rmodrak/mtbench/blob/FiguresSilwal2016/SerialGridSearch.DoubleCouple.png>`_.
 
-A typical runtime is about 60 seconds.  For faster results, `GridSearch.DoubleCouple.py <https://github.com/uafgeotools/mtuq/blob/master/examples/GridSearch.DoubleCouple.py>`_ runs the same inversion in parallel.
+A typical runtime is about 60 seconds.  For faster results, `GridSearch.DoubleCouple.py <https://github.com/mtuqorg/mtuq/blob/master/examples/GridSearch.DoubleCouple.py>`_ runs the same inversion in parallel.
 
 
 Parallel examples

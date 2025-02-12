@@ -95,5 +95,5 @@ To see how orientation trade offs with hypocenter, we can add the following keyw
 Source code
 """""""""""
 
-The above figures can be reproduced by running `GridSearch.DoubleCouple+Magnitude+Depth.py <https://github.com/uafgeotools/mtuq/blob/master/examples/GridSearch.DoubleCouple+Magnitude+Depth.py>`_ and `GridSearch.DoubleCouple+Magnitude+Hypocenter.py <https://github.com/uafgeotools/mtuq/blob/master/examples/GridSearch.DoubleCouple+Magnitude+Hypocenter.py>`_. 
+The above figures can be reproduced by running `GridSearch.DoubleCouple+Magnitude+Depth.py <https://github.com/mtuqorg/mtuq/blob/master/examples/GridSearch.DoubleCouple+Magnitude+Depth.py>`_ and `GridSearch.DoubleCouple+Magnitude+Hypocenter.py <https://github.com/mtuqorg/mtuq/blob/master/examples/GridSearch.DoubleCouple+Magnitude+Hypocenter.py>`_. 
 

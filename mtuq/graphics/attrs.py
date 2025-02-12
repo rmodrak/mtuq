@@ -200,7 +200,7 @@ def _plot_attrs(dirname, stations, origin, attrs, key,
 
     To customize figure appearance, users can pass their own backend function.
     See `online documentation 
-    <https://uafgeotools.github.io/mtuq/user_guide/06/customizing_figures.html>`_
+    <https://mtuqorg.github.io/mtuq/user_guide/06/customizing_figures.html>`_
     for details. Otherwise, defaults to a generic matplotlib `backend
     <mtuq.graphics.attrs._default_backend.html>`_.
 

@@ -14,7 +14,7 @@ Download MTUQ source code:
 
 .. code::
 
-   git clone https://github.com/uafgeotools/mtuq.git mtuq_src
+   git clone https://github.com/mtuqorg/mtuq.git mtuq_src
 
 
 Install MTUQ:
@@ -46,5 +46,5 @@ Unpack seismic waveforms used by examples:
 
 Finally, `install PyGMT manually <https://www.pygmt.org/latest/install.html#installing-pygmt>`_.  
 
-(For an automated PyGMT installation, consider `installing MTUQ under conda <https://uafgeotools.github.io/mtuq/install/index.html>`_ instead.)
+(For an automated PyGMT installation, consider `installing MTUQ under conda <https://mtuqorg.github.io/mtuq/install/index.html>`_ instead.)
 

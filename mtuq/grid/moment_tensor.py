@@ -14,7 +14,7 @@ from mtuq.util.math import open_interval, closed_interval,\
 
 #
 # see here for usage and other practical information
-# https://uafgeotools.github.io/mtuq/user_guide/06/moment_tensor_and_force_grids.html
+# https://mtuqorg.github.io/mtuq/user_guide/06/moment_tensor_and_force_grids.html
 #
 
 def FullMomentTensorGridRandom(magnitudes=[1.], npts=1000000):
@@ -199,11 +199,11 @@ def _semiregular(npts_v, npts_w, tightness=0.8, uniformity=0.8):
     Value in range `[0,1]` that controls the spacing between points
 
     - For `uniformity=0`, the spacing will be regular in `Tape2012 
-      <https://uafgeotools.github.io/mtuq/references.html>`_ parameters 
+      <https://mtuqorg.github.io/mtuq/references.html>`_ parameters 
       `delta`, `gamma`, which is  good for avoiding distortion near the upper
       and lower edges.
     - For `uniformity=1`, the spacing will be regular in `Tape2015
-      <https://uafgeotools.github.io/mtuq/references.html>`_ parameters `v, w`, 
+      <https://mtuqorg.github.io/mtuq/references.html>`_ parameters `v, w`, 
       which means that points are uniformly-spaced in terms of moment tensor 
       Frobenius norms.
     - For intermediate values, the spacing will be `semiregular` in the sense of

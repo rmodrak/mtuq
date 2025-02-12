@@ -39,7 +39,7 @@ For a grid of regulary-spaced moment tensors, `ds` may look something like:
 
 .. note::
 
-    Moment tensor grids are implemented using the `rho, v, w, kappa, sigma, h` parameterization of `Tape2012 <https://uafgeotools.github.io/mtuq/references.html>`_ and `Tape2015 <https://uafgeotools.github.io/mtuq/references.html>`_, from which `formulas <https://github.com/rmodrak/mtpar>`_ converting to parameterizations can be derived.
+    Moment tensor grids are implemented using the `rho, v, w, kappa, sigma, h` parameterization of `Tape2012 <https://mtuqorg.github.io/mtuq/references.html>`_ and `Tape2015 <https://mtuqorg.github.io/mtuq/references.html>`_, from which `formulas <https://github.com/rmodrak/mtpar>`_ converting to parameterizations can be derived.
 
 
 
@@ -123,7 +123,7 @@ To see how the magnitude of the best-fitting moment tensor varies with respect t
 Source code
 """""""""""
 
-[`script to reproduce above figures <https://github.com/uafgeotools/mtuq/blob/master/docs/user_guide/05/code/gallery_mt.py>`_]
+[`script to reproduce above figures <https://github.com/mtuqorg/mtuq/blob/master/docs/user_guide/05/code/gallery_mt.py>`_]
 
-Users can run the script immediately after `installing MTUQ <https://uafgeotools.github.io/mtuq/install/index.html>`_, without any additional setup.
+Users can run the script immediately after `installing MTUQ <https://mtuqorg.github.io/mtuq/install/index.html>`_, without any additional setup.
 
