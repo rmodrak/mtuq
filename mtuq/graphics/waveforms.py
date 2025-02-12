@@ -565,7 +565,7 @@ def _plot_trace(axis, dat, syn, label=None):
 
         t,s = _time_series(syn)
 
-        axis.plot(t[start:stop], s[start:stop], 'r', linewidth=1.25,
+        axis.plot(t[:stop-start], s[start:stop], 'r', linewidth=1.25,
             clip_on=True, zorder=10)
 
 
@@ -656,23 +656,23 @@ def _max(*datasets):
 
     for ds in datasets:
         if type(ds) not in [Dataset, Stream, Trace, Null]:
-           print('Expected a type Dataset, Stream, Trace, Null '
-                 'but received a type f{type(ds)}.\nSkipping...')
+            print('Expected a type Dataset, Stream, Trace, Null '
+                  'but received a type f{type(ds)}.\nSkipping...')
 
-           if type(ds)==Trace:
-               maxval = abs(ds.max())
+        if type(ds)==Trace:
+            maxval = abs(ds.max())
 
-           elif type(ds)==Stream:
-               maxval = map(abs, ds.max())
+        elif type(ds)==Stream:
+            maxval = map(abs, ds.max())
 
-           elif type(ds)==dsaset:
-               maxval = abs(ds.max())
+        elif type(ds)==Dataset:
+            maxval = abs(ds.max())
 
-           elif type(ds)==Null:
-               continue
+        elif type(ds)==Null:
+            continue
 
-           if maxval > maxall:
-               maxall = maxval
+        if maxval > maxall:
+            maxall = maxval
 
     return maxall
 
