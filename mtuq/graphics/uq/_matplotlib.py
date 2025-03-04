@@ -263,7 +263,10 @@ def _plot_force_matplotlib(filename, phi, h, values, best_force=None, colormap='
         cbmin, cbmax = im.get_clim()
         ticks = np.linspace(cbmin, cbmax, 3)
         cb = pyplot.colorbar(im, ticks=ticks, location='bottom', ax=ax, pad=0.001, fraction=0.02)
-        cb.set_label('l2-misfit')
+        if 'colorbar_label' in kwargs:
+            cb.set_label(kwargs['colorbar_label'])
+        else:
+            cb.set_label('l2-misfit')
     elif plot_type == 'scatter':
         cb = pyplot.colorbar(im, location='bottom', ax=ax, pad=0.001, fraction=0.02, ticks=boundaries, extend='max')
         cb.set_label('Mismatching polarities')
