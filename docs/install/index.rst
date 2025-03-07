@@ -1,7 +1,7 @@
 Installation
 ============
 
-We recommend installing MTUQ under Miniconda, which can be obtained following `these instructions <https://conda.io/projects/conda/en/latest/user-guide/install/index.html>`_.
+We recommend installing MTUQ under Miniforge, which can be obtained following `these instructions <https://conda-forge.org/download/>`_.
 
 
 To install MTUQ, create a conda virtual environment:
@@ -35,19 +35,13 @@ Unpack seismic waveforms used by examples:
     bash ./data/tests/download.bash
 
 
-Finally, install PyGMT:
-
-.. code::
-
-    conda install 'pygmt=0.9'
-
-.. note::
-
-    PyGMT installation has been finicky at times, so we include it as a separate step after the main env.yaml-based installation. Most MTUQ functions will continue to work without PyGMT. (`See here <https://mtuqorg.github.io/mtuq/install/issues.html#pygmt-installation>`_ for more information.)
-
-
 **Troubleshooting**
 
-For troubleshooting common installation issues, please `see here <https://mtuqorg.github.io/mtuq/install/issues.html>`_.
+For troubleshooting common installation issues, please see `
+
+- `general troubleshooting <https://mtuqorg.github.io/mtuq/install/issues.html>`_
+
+- `graphics troubleshooting <https://mtuqorg.github.io/mtuq/install/graphics.html>`_
+
 
 

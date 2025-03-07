@@ -1,57 +1,61 @@
 
-Troubleshooting
-===============
+Installation notes
+==================
+
+
+Cython extension modules
+------------------------
+
+MTUQ uses Cython extension modules for a significant speed up.
+
+By default, Cython extension modules are compiled using the conda-forge `compilers channel <https://anaconda.org/conda-forge/compilers>`_, which seems to work well on most Linux, Mac, and Windows systems.
+
+
+Cython compilation settings
+---------------------------
+
+To experiment with different compilation settings, users are free to comment out the `c-compiler` dependency in `env.yaml` and specify a different C compiler via the `CC` environment vairable.
+
+For faster experimentation, users can run 
+
+.. code::
+
+    ./build_ext.sh
+
+which compiles the Cython extensions directly, without first installilng all the other dependencies in the conda environment file.
+
+
+Troubleshooting Cython compilation errors
+-----------------------------------------
+
+If Cython modules fail to compile, MTUQ installation will usually exit with a traceback ending with `CondaEnvException: Pip failed` message.  More informative error output can then be obtained by running `build_ext.sh`.
+
+To troubleshoot Cython installation, users can modify the Cython files listed in `setup.py`, as well the the compilation settings determined by `setup.py`, the `CC` environment variable, the conda environment, and the underlying system environment.
+
+Alternatively, users can bypass Cython compilation errors by adding `optional=True` to the extension module settings `setup.py`:
+
+.. code::
+
+    ext_modules = [
+        Extension(
+            'mtuq.misfit.waveform.c_ext_L2', ['mtuq/misfit/waveform/c_ext_L2.c'],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=get_compile_args(),
+            optional=True,
+        )
+
+MTUQ will then fall back to slower pure Python implementations at runtime.
+
 
 
 Instaseis installation
 ----------------------
 
-MTUQ uses Instaseis for generating synthetic seismograms.
+MTUQ uses Instaseis to generate synthetic seismograms.
 
-If MTUQ installation fails with an Instaseis error, then we suggest the following workaround:
+Currently, Instaseis installation via conda forge does not reliably work, so we implement a workaround using a modified Instaseis repository hosted on GitHub.
 
-1. Comment out instaseis in the env.yaml file.
-
-2. Re-try the installation:
-
-.. code::
-
-   conda activate mtuq
-   conda env update --file env.yaml
-
-3. Install gfortran, if not already present.
-
-4. Try Instaseis installation as follows:
-
-.. code::
-
-   CC=gfortran pip install git+https://github.com/rmodrak/instaseis.git
-
-
-
-
-PyGMT installation
-------------------
-
-MTUQ uses full moment tensor plotting functions from the PyGMT graphics library.
-
-To avoid a known issue with PyGMT installation under conda, it is necessary to specify a minimum PyGMT version as follows:
-
-.. code::
-
-    conda install 'pygmt>=0.9'
-
-
-A more conservative approach, which avoids possible issues with PyGMT 0.10 releases, is to specify the more stable PyGMT 0.9 version:
-
-.. code::
-
-    conda install 'pygmt=0.9'
-
-
-If PyGMT installation fails, most MTUQ functions will still work, but some plotting functions will fall back to GMT or ObsPy.  
-
-We note that some versions of GMT and ObsPy do not plot `full moment tensors <https://github.com/obspy/obspy/issues/2388>`_ correctly.
+Similar to Cython extensions, Instaseis includes Fortran extensions for code speedup, so we include the `fortran-compiler` dependency in `env.yaml`.
 
 
 
@@ -67,13 +71,10 @@ Older versions of the conda package manager can be very slow. For a potential sp
 For reference, the largest potential speed up comes from the new `mamba <https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community>`_ dependency solver, which was `adopted <https://conda.org/blog/2023-11-06-conda-23-10-0-release>`_ in the 23.10 release.
 
 
+MTUQ installation on Apple Silicon Macs
+---------------------------------------
 
-MTUQ installation on Apple M1 and Apple M2 Macs
------------------------------------------------
+Installation on Apple Silicon Macs (M1, M2, M3) is now possible using the default installation procedure.  
 
-Installation on Apple M1 and Apple M2 Macs is now possible using the default installation procedure.
-
-For older versions of MTUQ, a modified installation procedure may still be necessary.  For more information, please see:
-
-`MTUQ installation on ARM64 systems <https://mtuqorg.github.io/mtuq/install/arm64.html>`_
+A modified conda environment file `env_arm64.yaml` is no longer necessary.
 
