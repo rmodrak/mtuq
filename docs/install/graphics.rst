@@ -20,7 +20,7 @@ By default, MTUQ uses matplotlib backends.
 GMT and PyGMT backends
 ----------------------
 
-In addition to newer matplotlib backends, MTUQ includes older GMT and PyGMT backends.  To use these, it is first to install PyGMT and then supply the backend function via the plotting functions' `backend` keyword argument.
+In addition to newer matplotlib backends, MTUQ includes older GMT and PyGMT backends.  To use these, it is necessary to install PyGMT and then supply the backend function when invoking the frontend.
 
 
 PyGMT installation
@@ -46,5 +46,12 @@ Moment tensor beachballs
 
 MTUQ now includes its own beachball plotting implementation, as well as wrappers over GMT, PyGMT and ObsPy beachball plotting functions.
 
-We note that some earlier versions of GMT and ObsPy plotted `non-double couple beachballs <https://github.com/obspy/obspy/issues/2388>`_ incorrectly.
+
+.. warning::
+
+    Some versions of GMT and ObsPy plotted `non-double couple beachballs <https://github.com/obspy/obspy/issues/2388>`_ incorrectly.
+
+.. warning::
+
+    MTUQ's `_plot_beachball_matplotlib() <https://mtuqorg.github.io/mtuq/_modules/mtuq/graphics/beachball.html>`_ appears to improve over some versions of GMT and ObsPy, but is still being tested.
 
