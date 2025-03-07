@@ -40,8 +40,7 @@ If MPI is present, run the parallel examples as follows:
 Note that the examples will still work if invoked without `mpirun`, but running times will be longer.
 
 
-References
-----------
+**References**
 
 [`Silwal2016`] Vipul Silwal and Carl Tape (2016), Seismic moment tensors and
 estimated uncertainties in southern Alaska, JGR, https://doi.org/10.1002/2015JB012588
