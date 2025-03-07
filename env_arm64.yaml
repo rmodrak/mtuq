@@ -18,7 +18,8 @@ dependencies:
   - nose
   - pytest
   - pip
-  - gfortran
+  - c-compiler
+  - fortran-compiler
   - pip:
     - git+https://github.com/rmodrak/instaseis.git
     - tables

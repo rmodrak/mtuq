@@ -6,7 +6,7 @@ Installation notes
 Installation on Apple Silicon Macs
 ----------------------------------
 
-MTUQ installation on Apple M1, M2 and M3 Macs is now possible using the default installation procedure. Use of a modified conda environment file `env_arm64.yaml` is no longer necessary.
+MTUQ installation on Apple M1, M2 and M3 Macs is now possible using the default installation procedure.  A modified conda environment file is no longer necessary.
 
 
 Cython extension modules
@@ -36,9 +36,9 @@ Troubleshooting Cython compilation
 
 If Cython modules fail to compile, MTUQ installation will exit with an error message ending with `CondaEnvException: Pip failed`.  More informative output can then be obtained by running `build_ext.sh`.
 
-To troubleshoot Cython installation, users can try modifying the Cython files listed in `setup.py`, or try varying the compilation settings determined by `setup.py`, the `CC` environment variable, the conda environment, and the underlying system environment.
+To troubleshoot Cython installation, users can try modifying the Cython source code files listed in `setup.py`, or try varying the compilation settings determined by `setup.py`, the `CC` environment variable, the conda environment, and the underlying system environment.
 
-Alternatively, users can bypass Cython compilation errors by adding `optional=True` to the extension module settings in `setup.py`,
+Alternatively, users can bypass Cython compilation errors by adding `optional=True` to the extension module settings in `setup.py`:
 
 .. code::
 
@@ -50,7 +50,7 @@ Alternatively, users can bypass Cython compilation errors by adding `optional=Tr
             optional=True,
         )
 
-which causes MTUQ to fall back to slower pure Python functions at runtime.
+With this change, Cython errors will be ignored at install-time and MTUQ may fall back to slow pure Python functions at runtime.
 
 
 
@@ -59,7 +59,7 @@ Instaseis installation
 
 MTUQ uses Instaseis to generate synthetic seismograms.
 
-Because Instaseis does not always successfully install under conda-forge, we implement a workaround using a modified Instaseis repository hosted on GitHub.
+Because Instaseis does not always install successfully under conda-forge, we implement a workaround using a modified Instaseis repository hosted on GitHub.
 
 Similar to Cython extensions, Instaseis uses Fortran extensions for speedup, for which we install `fortran-compiler` conda-forge package.
 
