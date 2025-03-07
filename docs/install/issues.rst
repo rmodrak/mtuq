@@ -28,7 +28,7 @@ which compiles the Cython extensions directly, without first installilng all the
 Troubleshooting Cython compilation errors
 -----------------------------------------
 
-If Cython modules fail to compile, MTUQ installation will usually exit with a traceback ending with `CondaEnvException: Pip failed` message.  More informative error output can then be obtained by running `build_ext.sh`.
+If Cython modules fail to compile, MTUQ installation will usually exit with a traceback ending with `CondaEnvException: Pip failed`.  More informative error output can then be obtained by running `build_ext.sh`.
 
 To troubleshoot Cython installation, users can modify the Cython files listed in `setup.py`, as well the the compilation settings determined by `setup.py`, the `CC` environment variable, the conda environment, and the underlying system environment.
 
@@ -53,9 +53,9 @@ Instaseis installation
 
 MTUQ uses Instaseis to generate synthetic seismograms.
 
-Currently, Instaseis installation via conda forge does not reliably work, so we implement a workaround using a modified Instaseis repository hosted on GitHub.
+Currently, Instaseis does not reliably install under conda forge, so we implement a workaround using a modified Instaseis repository hosted on GitHub.
 
-Similar to Cython extensions, Instaseis includes Fortran extensions for code speedup, so we include the `fortran-compiler` dependency in `env.yaml`.
+Similar to Cython extensions, Instaseis uses Fortran extensions for code speedup, so we include the `fortran-compiler` dependency in `env.yaml`.
 
 
 
