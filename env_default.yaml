@@ -1,7 +1,6 @@
 
 channels:
   - conda-forge
-  - defaults
 
 dependencies:
   - conda-build
@@ -19,9 +18,9 @@ dependencies:
   - nose
   - pytest
   - pip
+  - c-compiler
+  - fortran-compiler
   - pip:
     - git+https://github.com/rmodrak/instaseis.git
     - tables
-    - seisgen
-    - seishmc
     - -e .

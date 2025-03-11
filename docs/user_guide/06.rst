@@ -1,9 +1,7 @@
 
 
-Additional topics
-=================
-
-Data structures
+Miscellaneous
+=============
 
 .. toctree::
    :maxdepth: 1
@@ -12,13 +10,6 @@ Data structures
    06/moment_tensor_and_force_grids
    06/reading_writing_results
    06/trace_attributes
-
-
-Visualization
-
-.. toctree::
-   :maxdepth: 1
-
    06/plotting_trace_attributes
    06/customizing_figures
 
