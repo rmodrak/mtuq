@@ -24,7 +24,7 @@ def ForceGridRegular(magnitudes_in_N=1., npts_per_axis=80):
     `len(magnitudes_in_N)*npts_per_axis^2`.
 
     """
-    phi = regular(0., 360., npts_per_axis)
+    phi = regular(0., 360., 2 * npts_per_axis)
     h = regular(-1., 1., npts_per_axis)
     F0 = asarray(magnitudes_in_N)
 
