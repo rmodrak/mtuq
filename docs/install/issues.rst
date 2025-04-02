@@ -61,7 +61,7 @@ MTUQ uses Instaseis to generate synthetic seismograms.
 
 Because Instaseis does not always install successfully under conda-forge, we implement a workaround using a modified Instaseis repository hosted on GitHub.
 
-Similar to Cython extensions, Instaseis uses Fortran extensions for speedup, for which we install `fortran-compiler` conda-forge package.
+Instaseis uses Fortran extensions for speedup, for which we install `fortran-compiler` the conda-forge package.
 
 
 
