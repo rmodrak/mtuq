@@ -69,8 +69,10 @@ def plot_waveforms1(
             continue
 
         # add station labels
-        if station_label_writer is not None:
+        try:
             station_label_writer(axes[ir][0], stations[_i], origin)
+        except:
+            pass
 
         # plot traces
         _plot_stream(axes[ir], [1,2,3], ['Z','R','T'], 
@@ -658,6 +660,7 @@ def _max(*datasets):
         if type(ds) not in [Dataset, Stream, Trace, Null]:
             print('Expected a type Dataset, Stream, Trace, Null '
                   'but received a type f{type(ds)}.\nSkipping...')
+            continue
 
         if type(ds)==Trace:
             maxval = abs(ds.max())
