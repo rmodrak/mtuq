@@ -8,7 +8,7 @@
 Receiver-side 3D Green's functions
 ==================================
 
-A working of example using receiver-side 3D Green's functions from SPECFEM3D in a moment tensor inversion:
+A working example using receiver-side 3D Green's functions from SPECFEM3D in a moment tensor inversion:
 
 `test_greens_SPECFEM3D_SGT.py <https://github.com/rmodrak/mtuq/blob/master/tests/test_greens_SPECFEM3D_SGT.py>`_
 
