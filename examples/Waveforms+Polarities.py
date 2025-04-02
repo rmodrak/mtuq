@@ -10,7 +10,7 @@ from mtuq.grid import FullMomentTensorGridSemiregular
 from mtuq.grid_search import grid_search
 from mtuq.misfit import WaveformMisfit, PolarityMisfit
 from mtuq.process_data import ProcessData
-from mtuq.util import fullpath, merge_dicts, save_json
+from mtuq.util import fullpath, merge_dicts, save_json, sort_polarities
 from mtuq.util.cap import parse_station_codes, Trapezoid
 
 
@@ -79,17 +79,6 @@ if __name__=='__main__':
 
     polarity_misfit = PolarityMisfit(
         taup_model=model)
-
-
-    #
-    # Observed polarities can be attached to the data or passed through a 
-    # user-supplied dictionary or list in which +1 corresopnds to positive 
-    # first motion, -1 to negative first moation, and 0 to indeterminate or
-    # unpicked
-    #
-
-    polarities = np.array([-1, -1, -1, 1, 1, 0, 1, 1, -1, 1, 1, 1, 0, 1, 1, 1, -1, 1, 1, 0])
-
 
 
     #
@@ -197,6 +186,44 @@ if __name__=='__main__':
     if comm.rank==0:
         print('Evaluating polarity misfit...\n')
 
+    #
+    # Observed polarities can be attached to the data or passed through a 
+    # user-supplied dictionary or list in which +1 corresopnds to positive 
+    # first motion, -1 to negative first moation, and 0 to indeterminate or
+    # unpicked
+    #
+    
+    #First, a zeroes polarity numpy array is created with the same length of the stations in data.
+    number_stations = len(data)
+    polarities= np.zeros(number_stations)
+    #Second, the polarities dictionary is defined.
+    dict_polarity = {
+    "BMR": 0,
+    "DIV": 1,
+    "EYAK": 1,
+    "PAX": 1,
+    "SWD": 1,
+    "TRF": -1,
+    "PMR": -1,
+    "AVAL": 1,
+    "BIGB": -1,
+    "BLAK": 1,
+    "DEVL": 1,
+    "HEAD": 1,
+    "KASH": -1,
+    "LSKI": -1,
+    "LSUM": 1,
+    "MPEN": 0,
+    "NSKI": 1,
+    "PERI": 1,
+    "SOLD": 0,
+    "TUPA": 1,
+    }
+    #Third: the polarities array is populated with the polarities in the dictionary
+    #the subroutine sort_polarities helps to ensure that the order of the entered polarities
+    #is the same than the order of stations in data.
+    polarities = sort_polarities(dict_polarity,data,polarities)
+
     results_polarity = grid_search(
         polarities, greens_bw, polarity_misfit, origin, grid)
 
@@ -244,4 +271,3 @@ if __name__=='__main__':
             polarities, predicted, attrs, origin, best_mt)
 
         print('\nFinished\n')
-

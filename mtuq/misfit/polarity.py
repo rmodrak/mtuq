@@ -275,19 +275,12 @@ def _takeoff_angle_taup(taup, depth_in_km, distance_in_deg):
 
     arrivals = taup.get_travel_times(
         depth_in_km, distance_in_deg, phase_list=['p', 'P'])
-
-    phases = []
-    for arrival in arrivals:
-        phases += [arrival.phase.name]
-
-    if 'p' in phases:
-        return arrivals[phases.index('p')].takeoff_angle
-
-    elif 'P' in phases:
-        return arrivals[phases.index('P')].takeoff_angle
-
-    else:
+    
+    if len(arrivals) == 0:
         raise Exception
+    else:
+        sorted_arrivals = sorted(arrivals, key=lambda arrival: arrival.time)
+        return sorted_arrivals[0].takeoff_angle
 
 
 def _polarities_mt(mt_array, takeoff, azimuth):
