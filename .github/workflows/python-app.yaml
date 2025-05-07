@@ -11,7 +11,7 @@ jobs:
 
     # we find that CPU/memory limits are less often exceeded using this 
     # specific version of Ubuntu
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     #runs-on: ubuntu-latest
 
