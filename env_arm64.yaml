@@ -4,7 +4,7 @@ channels:
 
 dependencies:
   - conda-build
-  - python=3
+  - python=3.12.3
   - numpy 
   - scipy 
   - obspy 
