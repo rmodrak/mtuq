@@ -9,7 +9,7 @@ import os
 from matplotlib import pyplot
 from matplotlib.font_manager import FontProperties
 from mtuq.event import MomentTensor
-from mtuq.graphics.beachball import plot_beachball
+from mtuq.graphics.beachball import plot_beachball, _plot_beachball_matplotlib
 from mtuq.graphics._pygmt import exists_pygmt, plot_force_pygmt
 from mtuq.graphics._matplotlib import plot_force_matplotlib
 from mtuq.util.math import to_delta_gamma
@@ -237,7 +237,7 @@ class MomentTensorHeader(SourceHeader):
         self.parse_station_counts()
 
 
-    def display_source(self, ax, height, width, offset):
+    def display_source(self, ax, height, width, offset, backend=_plot_beachball_matplotlib):
 
         #
         # If ObsPy plotted focal mechanisms correctly we could do the following
@@ -263,16 +263,28 @@ class MomentTensorHeader(SourceHeader):
         xp = offset
         yp = 0.075*height
 
-        plot_beachball('tmp.png', self.mt, None, None)
-        img = pyplot.imread('tmp.png')
+        if backend != _plot_beachball_matplotlib:
+            plot_beachball('tmp.png', self.mt, None, None, backend=backend)
+            img = pyplot.imread('tmp.png')
 
-        try:
-            os.remove('tmp.png')
-            os.remove('tmp.ps')
-        except:
-            pass
+            try:
+                os.remove('tmp.png')
+                os.remove('tmp.ps')
+            except:
+                pass
 
-        ax.imshow(img, extent=(xp,xp+diameter,yp,yp+diameter))
+            ax.imshow(img, extent=(xp,xp+diameter,yp,yp+diameter))
+
+        else:
+            inset_ax = ax.inset_axes([xp, yp, diameter, diameter], transform=ax.transData)
+
+            inset_ax.set_xticks([])
+            inset_ax.set_yticks([])
+            inset_ax.set_frame_on(False)
+            # Draw the beachball directly as vector graphics
+            plot_beachball(None, self.mt, None, None, fig=inset_ax.figure, ax=inset_ax, backend=_plot_beachball_matplotlib)
+
+            inset_ax.axis('off')
 
 
     def write(self, height, width, margin_left, margin_top):
