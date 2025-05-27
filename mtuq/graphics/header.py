@@ -1,4 +1,3 @@
-
 #
 # graphics/header.py - figure headers and text
 #
@@ -97,12 +96,24 @@ class SourceHeader(Base):
     def parse_origin(self):
         depth_in_m = self.origin.depth_in_m
         depth_in_km = self.origin.depth_in_m/1000.
-        if depth_in_m < 1000.:
-            self.depth_str = '%.0f m' % depth_in_m
-        elif depth_in_km <= 100.:
-            self.depth_str = '%.1f km' % depth_in_km
+        if depth_in_m > 0:
+            if depth_in_m < 1000.:
+                self.depth_str = '%.0f m' % depth_in_m
+            elif depth_in_km <= 100.:
+                self.depth_str = '%.1f km' % depth_in_km
+            else:
+                self.depth_str = '%.0f km' % depth_in_km
+            self.depth_label = 'Depth'
         else:
-            self.depth_str = '%.0f km' % depth_in_km
+            height_in_m = abs(depth_in_m)
+            height_in_km = abs(depth_in_km)
+            if height_in_m < 1000.:
+                self.depth_str = '%.0f m' % height_in_m
+            elif height_in_km <= 100.:
+                self.depth_str = '%.1f km' % height_in_km
+            else:
+                self.depth_str = '%.0f km' % height_in_km
+            self.depth_label = 'Height'
 
 
     def parse_misfit(self):
@@ -301,8 +312,8 @@ class MomentTensorHeader(SourceHeader):
         px += 0.00
         py -= 0.35
 
-        line = '%s  %s  $M_w$ %.2f  Depth %s' % (
-            self.event_name, _lat_lon(self.origin), self.magnitude, self.depth_str)
+        line = '%s  %s  $M_w$ %.2f  %s %s' % (
+            self.event_name, _lat_lon(self.origin), self.magnitude, self.depth_label, self.depth_str)
         _write_bold(line, px, py, ax, fontsize=16.5)
 
 
@@ -418,8 +429,8 @@ class ForceHeader(SourceHeader):
         px += 0.00
         py -= 0.35
 
-        line = '%s  %s  $F$ %.2e N   Depth %s' % (
-            self.event_name, _lat_lon(self.origin), self.force_dict['F0'], self.depth_str)
+        line = '%s  %s  $F$ %.2e N   %s %s' % (
+            self.event_name, _lat_lon(self.origin), self.force_dict['F0'], self.depth_label, self.depth_str)
         _write_bold(line, px, py, ax, fontsize=16)
 
 
