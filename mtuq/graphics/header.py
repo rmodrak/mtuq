@@ -96,7 +96,7 @@ class SourceHeader(Base):
     def parse_origin(self):
         depth_in_m = self.origin.depth_in_m
         depth_in_km = self.origin.depth_in_m/1000.
-        if depth_in_m > 0:
+        if depth_in_m >= 0:
             if depth_in_m < 1000.:
                 self.depth_str = '%.0f m' % depth_in_m
             elif depth_in_km <= 100.:
