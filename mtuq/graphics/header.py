@@ -488,11 +488,11 @@ class ForceHeader(SourceHeader):
             return
 
         # image size
-        diameter = 0.75*height
+        diameter = 0.8*height
 
         # image placement
         xp = offset
-        yp = 0.075*height
+        yp = (height - diameter) / 2 - 0.1*diameter
 
         if backend == plot_force_matplotlib:
             # Use inset axes and plot directly as vector graphics
