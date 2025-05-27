@@ -471,16 +471,23 @@ class ForceHeader(SourceHeader):
         xp = offset
         yp = 0.075*height
 
-        backend('tmp.png', self.force_dict)
-        img = pyplot.imread('tmp.png')
-
-        try:
-            # os.remove('tmp.png')
-            os.remove('tmp.ps')
-        except:
-            pass
-
-        ax.imshow(img, extent=(xp,xp+diameter,yp,yp+diameter))
+        if backend == plot_force_matplotlib:
+            # Use inset axes and plot directly as vector graphics
+            inset_ax = ax.inset_axes([xp, yp, diameter, diameter], transform=ax.transData)
+            inset_ax.set_xticks([])
+            inset_ax.set_yticks([])
+            inset_ax.set_frame_on(False)
+            plot_force_matplotlib(force_dict=self.force_dict, ax=inset_ax)
+            inset_ax.axis('off')
+        else:
+            backend('tmp.png', self.force_dict)
+            img = pyplot.imread('tmp.png')
+            try:
+                os.remove('tmp.png')
+                os.remove('tmp.ps')
+            except:
+                pass
+            ax.imshow(img, extent=(xp,xp+diameter,yp,yp+diameter))
 
 
 
