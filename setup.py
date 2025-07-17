@@ -102,7 +102,7 @@ setup(
     # (consider using a conda based installation instead)
     install_requires=[
         "numpy", 
-        "scipy<1.13.0",
+        "scipy",
         "pandas",
         "xarray",
         "netCDF4",
@@ -116,7 +116,7 @@ setup(
         "flake8",
         "pytest",
         "nose",
-        #"instaseis"
+        "instaseis",
     ],
     ext_modules = [
         Extension(
