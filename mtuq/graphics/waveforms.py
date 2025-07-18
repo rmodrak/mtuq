@@ -654,7 +654,7 @@ def _isempty(dataset):
 def _max(*datasets):
     # returns maximum amplitude over traces, streams, or datasets
 
-    maxall = -np.Inf
+    maxall = -np.inf
 
     for ds in datasets:
         if type(ds) not in [Dataset, Stream, Trace, Null]:
