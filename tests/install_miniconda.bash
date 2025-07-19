@@ -24,6 +24,7 @@ PYTHON_VERSION=3
 # conda will be installed using the functions below
 #
 CONDA_PATH="$HOME/miniconda3"
+CONDA_EXE='conda'
 
 
 function conda_install {
@@ -39,11 +40,12 @@ function conda_install {
 
 function conda_update {
     CONDA_PATH=$1
+    CONDA_EXE=$2
 
-    conda config --set always_yes yes --set changeps1 no 
-    conda update -q conda
-    conda info -a
-    conda config --add channels conda-forge
+    $CONDA_EXE config --set always_yes yes --set changeps1 no 
+    $CONDA_EXE update -q conda
+    $CONDA_EXE info -a
+    $CONDA_EXE config --add channels conda-forge
 }
 
 
@@ -84,14 +86,14 @@ echo "Installing latest version of conda"
 echo
 [ -d $CONDA_PATH ] || conda_install $CONDA_PATH > tests/log1
 source $CONDA_PATH/etc/profile.d/conda.sh
-conda_update $CONDA_PATH >> tests/log1
+conda_update $CONDA_PATH $CONDA_EXE >> tests/log1
 echo SUCCESS
 echo
 
 echo "Testing mtuq installation"
-conda env create -q --name env_default --file env.yaml > tests/log2
-conda activate env_default
-conda deactivate
+$CONDA_EXE env create -q --name env_default --file env.yaml > tests/log2
+$CONDA_EXE activate env_default
+$CONDA_EXE deactivate
 echo SUCCESS
 echo 
 
