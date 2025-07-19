@@ -53,5 +53,5 @@ jobs:
     - name: conda installation
       timeout-minutes: 60
       run: |
-         bash tests/install_miniforge.bash
+         bash tests/install_conda.bash
 
