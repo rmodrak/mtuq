@@ -112,8 +112,8 @@ setup(
         "flake8",
         "nose",
         "pytest",
-        #"seisgen",
-        #"seisclient",
+        "seisgen",
+        "seisclient",
         #"seishmc",
     ],
     ext_modules = [
