@@ -20,31 +20,40 @@ PYTHON_VERSION=3
 
 
 #
-# path to existing conda installation, or if not already present, where
-# conda will be installed using the functions below
+# path where conda will be installed
 #
-CONDA_PATH="$HOME/miniforge3"
-CONDA_EXE='conda'
+_CONDA_PATH_="$HOME/miniforge3"
+
+#
+# it appears that conda and mamba differ subtly in their input arguments,
+# and are not completely interchangeable
+# 
+_CONDA_EXE_='conda'
+
+
+# note that CONDA_EXE and CONDA_PATH are reserved by the conda distribution
+# itself, so we used _CONDA_EXE_ and _CONDA_PATH_
+
 
 
 function conda_install {
-    CONDA_PATH=$1
+    _CONDA_INSTALL_PATH_=$1
 
     hash -r
     wget -nv $(conda_url) -O miniforge.sh
-    bash miniforge.sh -b -f -p $CONDA_PATH
+    bash miniforge.sh -b -f -p $_CONDA_INSTALL_PATH_
     hash -r
     rm miniforge.sh
 }
 
 
 function conda_update {
-    CONDA_PATH=$1
+    _CONDA_PATH_=$1
 
-    $CONDA_EXE config --set always_yes yes --set changeps1 no 
-    $CONDA_EXE update -q conda
-    $CONDA_EXE info -a
-    $CONDA_EXE config --add channels conda-forge
+    $_CONDA_EXE_ config --set always_yes yes --set changeps1 no 
+    $_CONDA_EXE_ update -q conda
+    $_CONDA_EXE_ info -a
+    $_CONDA_EXE_ config --add channels conda-forge
 }
 
 
@@ -62,7 +71,6 @@ case "$(os_string)" in
      URL="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh"
      ;;
    *)
-     echo "installation test not supported on OS"
      exit -1
      ;;
 esac
@@ -82,8 +90,11 @@ fi
 # installation tests begin now
 #
 
-# if any test fails, stop immediately
+# if any test fails from now on, stop immediately
 set -e
+
+# verbose mode from now on
+set -x
 
 
 echo
@@ -93,14 +104,16 @@ cd $MTUQ_PATH
 
 echo "Installing latest version of conda"
 echo
-[ -d $CONDA_PATH ] || conda_install $CONDA_PATH > tests/log1
-source $CONDA_PATH/etc/profile.d/conda.sh
-conda_update $CONDA_PATH >> tests/log1
+[ -d $_CONDA_PATH_ ] || conda_install $_CONDA_PATH_ > tests/log0
+source $_CONDA_PATH_/etc/profile.d/conda.sh
+conda_update $_CONDA_PATH_ >> tests/log0
 echo SUCCESS
 echo
 
 echo "Testing mtuq installation"
-$CONDA_EXE env create -q --name env_default --file env.yaml > tests/log2
+$_CONDA_EXE_ env create -q --name env1 --file env.yaml > tests/log1
+$_CONDA_EXE_ activate env1
+$_CONDA_EXE_ deactivate
 echo SUCCESS
 echo 
 
