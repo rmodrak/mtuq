@@ -98,7 +98,7 @@ setup(
     entry_points=ENTRY_POINTS,
     python_requires='>=3',
     install_requires=[
-        "numpy", 
+        "numpy<2", 
         "scipy",
         "obspy",
         "instaseis",
@@ -107,7 +107,7 @@ setup(
         "netCDF4",
         "h5py",
         "tables",
-        "mpi4py",
+        #"mpi4py",
         "retry",
         "flake8",
         "nose",
