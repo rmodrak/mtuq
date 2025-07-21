@@ -96,27 +96,25 @@ setup(
         "seismology"
     ],
     entry_points=ENTRY_POINTS,
-    python_requires='>=3.7.0',
-    # NOTE
-    # instaseis Fortran extension modules sometimes fail to compile via pip
-    # (consider using a conda based installation instead)
+    python_requires='>=3',
     install_requires=[
-        "numpy", 
-        "scipy<1.13.0",
+        "numpy<2", 
+        "scipy",
+        "obspy",
+        "instaseis",
         "pandas",
         "xarray",
         "netCDF4",
         "h5py",
         "tables",
-        "obspy",
-        "seisgen",
-        "seisclient",
-        "seishmc",
+        #"mpi4py",
         "retry",
         "flake8",
-        "pytest",
         "nose",
-        #"instaseis"
+        "pytest",
+        "seisgen",
+        "seisclient",
+        #"seishmc",
     ],
     ext_modules = [
         Extension(

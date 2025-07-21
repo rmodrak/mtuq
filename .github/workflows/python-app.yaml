@@ -18,10 +18,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.9
+    - name: Set up Python 3
       uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
+      #with:
+      #  python-version: 3.9
 
     - name: pip installation
     # test pip installation first (much faster than conda)
@@ -46,12 +46,12 @@ jobs:
       run: |
          python tests/test_graphics.py
 
-    # unfortunately, these Conda installation tests exceed the resource limits
+    # unfortunately, these Conda installation tests sometimes exceed the resource limits
     # for GitHub workflows
     # (https://github.com/actions/runner-images/issues/6680)
     # (https://github.com/conda/conda/issues/8650)
-    #- name: conda installation
-    #  timeout-minutes: 60
-    #  run: |
-    #     bash tests/conda_install.bash
+    - name: conda installation
+      timeout-minutes: 60
+      run: |
+         bash tests/install_conda.bash
 

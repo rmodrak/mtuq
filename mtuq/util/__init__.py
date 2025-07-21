@@ -37,7 +37,11 @@ class AttribDict(obspy.core.util.attribdict.AttribDict):
 def asarray(x):
     """ NumPy array typecast
     """
-    return np.array(x, dtype=np.float64, ndmin=1, copy=False)
+    try:
+        return np.array(x, dtype=np.float64, ndmin=1, copy=False)
+    except:
+        return np.array(x, dtype=np.float64, ndmin=1)
+
 
 
 def gather2(comm, array):
