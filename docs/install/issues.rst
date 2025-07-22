@@ -3,10 +3,32 @@ Installation notes
 ==================
 
 
-Installation on Apple Silicon Macs
-----------------------------------
+A common cause of installation errors
+--------------------------------------
 
-MTUQ installation on Apple M1, M2 and M3 Macs is now possible using the default installation procedure.  A modified conda environment file is no longer necessary.
+On Unix-like systems, a non-writeable `/tmp` directory can cause the installation to fail in with unexpected or difficult-to-diagnose error messages.
+
+A useful troubleshooting step is to set the ``TMPDIR`` environment variable to a directory that exists and is writeable.
+
+
+Installation on Unix systems
+-----------------------------
+
+MTUQ installation is supported on Unix-like systems.
+
+
+Installation on MacOS systems
+-----------------------------
+
+MTUQ installation is supported on MacOS systems.
+
+MTUQ installation on Apple Silicon Macs is now possible using the default installation procedure.  A modified conda environment file is no longer necessary.
+
+
+Installation on Windows
+-----------------------
+
+MTUQ installation is not currently supported on Windows, however, we invite users to test it and contribute portability fixes.
 
 
 Cython extension modules
@@ -51,17 +73,6 @@ Alternatively, users can bypass Cython compilation errors by adding `optional=Tr
         )
 
 With this change, Cython errors will be ignored at install-time and MTUQ may fall back to slow pure Python functions at runtime.
-
-
-
-Instaseis installation
-----------------------
-
-MTUQ uses Instaseis to generate synthetic seismograms.
-
-Because Instaseis does not always install successfully under conda-forge, we implement a workaround using a modified Instaseis repository hosted on GitHub.
-
-Instaseis uses Fortran extensions for speedup, for which we install `fortran-compiler` the conda-forge package.
 
 
 
