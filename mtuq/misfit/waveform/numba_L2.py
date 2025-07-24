@@ -1,44 +1,30 @@
-# misfit.pyx
+
 import numpy as np
-cimport numpy as np
-from libc.math cimport fabs, pow
+from numba import njit, prange
+from math import fabs, pow
 
-import cython
-@cython.boundscheck(False)
-@cython.wraparound(False)
+@njit(parallel=False)
+def misfit_numba(data_data, greens_data, greens_greens,
+                 sources, groups, weights,
+                 hybrid_norm, dt, NPAD1, NPAD2,
+                 debug_level, msg_start, msg_stop, msg_percent):
+   
+    NSRC = sources.shape[0]
+    NSTA = weights.shape[0]
+    NC = weights.shape[1]
+    NG = sources.shape[1]
+    NGRP = groups.shape[0]
+    NPAD = NPAD1 + NPAD2 + 1
 
-def misfit(np.ndarray[np.float64_t, ndim=2] data_data,
-           np.ndarray[np.float64_t, ndim=4] greens_data,
-           np.ndarray[np.float64_t, ndim=5] greens_greens,
-           np.ndarray[np.float64_t, ndim=2] sources,
-           np.ndarray[np.float64_t, ndim=2] groups,
-           np.ndarray[np.float64_t, ndim=2] weights,
-           int hybrid_norm,
-           double dt,
-           int NPAD1, int NPAD2,
-           int debug_level,
-           int msg_start, int msg_stop, int msg_percent):
-
-    cdef int NSRC = sources.shape[0]
-    cdef int NSTA = weights.shape[0]
-    cdef int NC = weights.shape[1]
-    cdef int NG = sources.shape[1]
-    cdef int NGRP = groups.shape[0]
-    cdef int NPAD = NPAD1 + NPAD2 + 1
-
-    cdef np.ndarray[np.float64_t, ndim=1] cc = np.zeros(NPAD, dtype=np.float64)
-    cdef np.ndarray[np.float64_t, ndim=2] results = np.zeros((NSRC, 1), dtype=np.float64)
-
-    cdef int isrc, ista, ic, ig, igrp, it, j1, j2, itpad, cc_argmax
-    cdef double cc_max, L2_sum, L2_tmp, source_val
+    results = np.zeros((NSRC, 1) dtype=np.float64)
+    cc = np.zeros(NPAD, dtype=np.float64)
 
     for isrc in range(NSRC):
-        cc[:] = 0
         L2_sum = 0.0
 
         for ista in range(NSTA):
             for igrp in range(NGRP):
-                cc[:] = 0
+                cc[:] = 0.0
 
                 for ic in range(NC):
                     if groups[igrp, ic] == 0:
@@ -66,12 +52,17 @@ def misfit(np.ndarray[np.float64_t, ndim=2] data_data,
                         continue
 
                     L2_tmp = 0.0
+
+                    # s^2 term
                     for j1 in range(NG):
                         for j2 in range(NG):
-                            L2_tmp += sources[isrc,j1] * sources[isrc, j2] *\
+                            L2_tmp += sources[isrc,j1] * sources[isrc,j2] *\
                                           greens_greens[ista, ic, itpad, j1, j2]
 
+                    # d^2 term
                     L2_tmp += data_data[ista, ic]
+
+                    # 2sd term
                     for ig in range(NG):
                         L2_tmp -= 2.0 * greens_data[ista, ic, ig, itpad] * sources[isrc, ig]
 
@@ -80,7 +71,7 @@ def misfit(np.ndarray[np.float64_t, ndim=2] data_data,
                     else:
                         L2_sum += dt * weights[ista, ic] * pow(L2_tmp, 0.5)
 
-        results[isrc,0] = L2_sum
+        results[isrc] = L2_sum
 
     return results
 
