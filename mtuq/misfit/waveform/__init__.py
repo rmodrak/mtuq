@@ -121,7 +121,7 @@ class WaveformMisfit(object):
         time_shift_groups=['ZRT'],
         time_shift_min=0.,
         time_shift_max=0.,
-        optimization_level=1,
+        optimization_level=2,
         ):
         """ Function handle constructor
         """

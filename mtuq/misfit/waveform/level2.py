@@ -11,7 +11,7 @@ from mtuq.misfit.waveform._stats import _flatten, calculate_norm_data
 from mtuq.misfit.waveform.level1 import correlate
 from mtuq.util.math import to_mij, to_rtp
 from mtuq.util.signal import get_components, get_time_sampling
-from mtuq.misfit.waveform import c_ext_L2
+from mtuq.misfit.waveform import cython_L2
 
 
 def misfit(data, greens, sources, norm, time_shift_groups,
@@ -82,7 +82,7 @@ def misfit(data, greens, sources, norm, time_shift_groups,
     start_time = time.time()
 
     if norm in ['L2', 'hybrid']:
-        results = c_ext_L2.misfit(
+        results = cython_L2.misfit(
            data_data, greens_data, greens_greens, sources, groups, weights,
            hybrid_norm, dt, padding[0], padding[1], debug_level, *msg_args)
 
