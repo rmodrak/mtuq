@@ -20,8 +20,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Python 3
       uses: actions/setup-python@v2
-      #with:
-      #  python-version: 3.9
 
     - name: pip installation
     # test pip installation first (much faster than conda)
@@ -37,11 +35,11 @@ jobs:
       run: |
          bash data/examples/unpack.bash
          bash data/tests/download.bash
-         python tests/benchmark_cap_vs_mtuq.py --no_figures
          python tests/test_grid_search_mt.py --no_figures
          python tests/test_grid_search_mt_depth.py --no_figures
          python tests/test_greens_SPECFEM3D_SAC.py --no_figures
          python tests/test_time_shifts.py --no_figures
+         python tests/benchmark_cap_vs_mtuq.py --no_figures
     - name: Graphics
       run: |
          python tests/test_graphics.py
