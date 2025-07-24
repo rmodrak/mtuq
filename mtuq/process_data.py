@@ -574,13 +574,13 @@ class ProcessData(object):
                         m_to_deg(distance_in_m),
                         phase_list=['p', 's', 'P', 'S'])
                 try:
-                    picks['P'] = get_arrival(arrivals, 'p')
+                    picks['P'] = float(get_arrival(arrivals, 'p'))
                 except:
-                    picks['P'] = get_arrival(arrivals, 'P')
+                    picks['P'] = float(get_arrival(arrivals, 'P'))
                 try:
-                    picks['S'] = get_arrival(arrivals, 's')
+                    picks['S'] = float(get_arrival(arrivals, 's'))
                 except:
-                    picks['S'] = get_arrival(arrivals, 'S')
+                    picks['S'] = float(get_arrival(arrivals, 'S'))
 
             elif self.pick_type == 'FK_metadata':
                 sac_headers = obspy.read('%s/%s_%s/%s.grn.0' %
@@ -589,8 +589,9 @@ class ProcessData(object):
                                           str(int(np.ceil(origin.depth_in_m/1000.))),
                                              str(int(np.ceil(distance_in_m/1000.)))),
                                          format='sac')[0].stats.sac
-                picks['P'] = sac_headers.t1
-                picks['S'] = sac_headers.t2
+
+                picks['P'] = float(sac_headers.t1)
+                picks['S'] = float(sac_headers.t2)
 
             elif self.pick_type == 'CPS_metadata':
                 dep_desired = "{:06.1f}".format(
@@ -651,7 +652,6 @@ class ProcessData(object):
             if self.window_type == 'body_wave':
                 # regional body-wave window in the manner of Zhu1996
                 # (closely based on CAP code)
-
                 starttime = picks['P'] - 0.4*self.window_length
                 endtime = starttime + self.window_length
 
