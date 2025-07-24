@@ -506,6 +506,21 @@ def _plot_stream(
     total_misfit=1.
     ):
 
+    if normalize in [
+        'maximum_amplitude',
+        'median_amplitude',
+        'station_amplitude',
+        'trace_amplitude',
+        ]:
+        pass
+    elif not normalize:
+        pass
+    else:
+        warn(f"Unrecognized option: normalize={normalize}.\n\n"
+             "Setting normalize='station_amplitude'")
+
+        normalize='station_amplitude'
+
     for _i, component, in enumerate(components):
         axis = axes[column_indices[_i]]
 
@@ -538,7 +553,7 @@ def _plot_stream(
 
         try:
             axis.set_ylim(*ylim)
-        except ValueError:
+        except (UnboundLocalError, ValueError):
             pass
 
         try:
@@ -654,6 +669,7 @@ def _isempty(dataset):
 def _max(*datasets):
     # returns maximum amplitude over traces, streams, or datasets
 
+    maxval = -np.inf
     maxall = -np.inf
 
     for ds in datasets:
@@ -666,7 +682,8 @@ def _max(*datasets):
             maxval = abs(ds.max())
 
         elif type(ds)==Stream:
-            maxval = map(abs, ds.max())
+            if len(ds) > 0:
+                maxval = max(map(abs, ds.max()))
 
         elif type(ds)==Dataset:
             maxval = abs(ds.max())
@@ -676,6 +693,9 @@ def _max(*datasets):
 
         if maxval > maxall:
             maxall = maxval
+
+    if maxall==-np.inf:
+        print('Warning: maximum value undefined')
 
     return maxall
 
