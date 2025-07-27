@@ -4,7 +4,7 @@ from numba import njit, prange
 from math import fabs, pow
 
 @njit(parallel=False)
-def misfit_numba(data_data, greens_data, greens_greens,
+def misfit(data_data, greens_data, greens_greens,
                  sources, groups, weights,
                  hybrid_norm, dt, NPAD1, NPAD2,
                  debug_level, msg_start, msg_stop, msg_percent):
@@ -16,7 +16,7 @@ def misfit_numba(data_data, greens_data, greens_greens,
     NGRP = groups.shape[0]
     NPAD = NPAD1 + NPAD2 + 1
 
-    results = np.zeros((NSRC, 1) dtype=np.float64)
+    results = np.zeros((NSRC, 1), dtype=np.float64)
     cc = np.zeros(NPAD, dtype=np.float64)
 
     for isrc in range(NSRC):
