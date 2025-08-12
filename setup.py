@@ -119,16 +119,5 @@ setup(
         "seisclient",
         #"seishmc",
     ],
-    #ext_modules = [
-    #    Extension(
-    #        'mtuq.misfit.waveform.c_ext_L2', ['mtuq/misfit/waveform/c_ext_L2.c'],
-    #        include_dirs=[numpy.get_include()],
-    #        extra_compile_args=get_compile_args(),
-    #        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
-    #        #optional=True,
-    #    )
-    #],
-    ext_modules=cythonize("mtuq/misfit/waveform/cython_L2.pyx", compiler_directives={'language_level': "3"}),
-    include_dirs=[numpy.get_include()],
 )
 
