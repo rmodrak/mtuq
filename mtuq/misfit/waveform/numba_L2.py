@@ -3,7 +3,7 @@ import numpy as np
 from numba import njit, prange
 from math import fabs, pow
 
-@njit(parallel=False)
+@njit(parallel=False,cache=False)
 def misfit(data_data, greens_data, greens_greens,
                  sources, groups, weights,
                  hybrid_norm, dt, NPAD1, NPAD2,
