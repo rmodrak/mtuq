@@ -162,7 +162,7 @@ class WaveformMisfit(object):
 
 
     def __call__(self, data, greens, sources, progress_handle=Null(), 
-        normalize=None, set_attributes=False, optimization_level=None):
+        normalize=True, set_attributes=False, optimization_level=None):
         """ Evaluates misfit on given data
         """
         if optimization_level is None:
