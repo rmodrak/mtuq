@@ -53,6 +53,10 @@ class WaveformMisfit(object):
     ..  (r11**2 + r12**2 + ...)**0.5 + (r21**2 + r22**2 + ...)**0.5 + ...
 
 
+    ``level`` (`int`): optimization level 
+    (see further details below)
+
+
     ``time_shift_groups`` (`list`)
 
     - ``['ZRT']``: forces all three components to have the same time shift
@@ -66,9 +70,6 @@ class WaveformMisfit(object):
     ``time_shift_min`` (`float`): minimum allowable time shift (s)
 
     ``time_shift_max`` (`float`): maximum allowable time shift (s)
-
-    ``optimization_level`` (`int`): optimization level 
-    (see further details below)
 
 
     .. note:: 
@@ -86,33 +87,39 @@ class WaveformMisfit(object):
 
     - a fast pure Python version (``mtuq.misfit.level1``)
 
-    - a very fast Python/C version (``mtuq.misfit.level2``)
+    - a very fast numba version (``mtuq.misfit.level2``)
+
+    - a very fast Cython version (``mtuq.misfit.level3``)
 
 
-    While having exactly the same input argument syntax, these three versions
+    While having exactly the same input argument syntax, the following versions
     differ in the following ways:
 
-    - ``level0`` provides a reference for understanding what the code is doing
+    - ``level=0`` provides a reference for understanding what the code is doing
       and for checking the correctness of the fast implementations
 
-    - ``level1`` is an optimized pure Python implementation which provides 
+    - ``level=1`` is an optimized pure Python implementation which provides 
       significant computational savings for `len(sources)` > 100. This
       version is the closest to `Zhu1996`'s original C software.
 
-    - ``level2`` is an optimized Python/C implementation, in which a Python 
+    - ``level=2`` is an optimized numba implementation, in which a Python 
       wrapper is used to combine ObsPy traces into multidimensional arrays.
-      These arrays are passed to a C extension module, which does the
-      main computational work. Unlike the other two versions, this 
+      These arrays are passed to a numba routine, which does the
+      main computational work. Unlike the previous two versions, this 
       implementation requires that all ObsPy traces have the same time
       discretization.
+
+    - ``level=3`` is an optimized Cython implementation, in which a Python 
+      wrapper is used to combine ObsPy traces into multidimensional arrays.
+      These arrays are passed to a Cython routine, which does the
+      main computational work. This implementation also requires that all 
+      ObsPy traces have the same time discretization.
 
 
     .. note:: 
 
-      During installation, C extension modules are automatically compiled by
-      `build_ext.sh` using compiler flags given in `setup.py`.  For performance
-      tuning or compiler troubleshooting, users may wish to modify the
-      `get_compiler_args` function in `setup.py`.
+      Cython extension modules are no longer automatically compiled during
+      during installation, but can be manually compiled via `build_ext.sh`.
 
     """
 
@@ -121,7 +128,9 @@ class WaveformMisfit(object):
         time_shift_groups=['ZRT'],
         time_shift_min=0.,
         time_shift_max=0.,
-        optimization_level=2,
+        level=2,
+        normalize=True,
+        verbose=2,
         ):
         """ Function handle constructor
         """
@@ -152,23 +161,31 @@ class WaveformMisfit(object):
                 assert component in ['Z','R','T'],\
                     ValueError("Bad input argument")
 
-        assert optimization_level in [0,1,2]
+        assert level in [0,1,2]
 
+        self.level = level
         self.norm = norm
+
         self.time_shift_min = time_shift_min
         self.time_shift_max = time_shift_max
         self.time_shift_groups = time_shift_groups
-        self.optimization_level = optimization_level
+
+        self.normalize = normalize
+
+        self.verbose = verbose
 
 
     def __call__(self, data, greens, sources, progress_handle=Null(), 
-        normalize=True, set_attributes=False, optimization_level=None):
+        normalize=True, set_attributes=False, level=None):
         """ Evaluates misfit on given data
         """
-        if optimization_level is None:
-            optimization_level = self.optimization_level
+        if normalize is None:
+            normalize = self.normalize
 
-        assert optimization_level in [0,1,2]
+        if level is None:
+            level = self.level
+
+        assert level in [0,1,2]
 
         # normally misfit is evaluated over a grid of sources; `iterable`
         # makes things work if just a single source is given
@@ -191,19 +208,19 @@ class WaveformMisfit(object):
         check_padding(greens, self.time_shift_min, self.time_shift_max)
 
  
-        if optimization_level==0 or set_attributes:
+        if level==0 or set_attributes:
             return level0.misfit(
                 data, greens, sources, self.norm, self.time_shift_groups, 
                 self.time_shift_min, self.time_shift_max, progress_handle,
                 normalize=normalize, set_attributes=set_attributes)
 
-        if optimization_level==1:
+        if level==1:
             return level1.misfit(
                 data, greens, sources, self.norm, self.time_shift_groups, 
                 self.time_shift_min, self.time_shift_max, progress_handle,
                 normalize=normalize)
 
-        if optimization_level==2:
+        if level==2:
             return level2.misfit(
                 data, greens, sources, self.norm, self.time_shift_groups,
                 self.time_shift_min, self.time_shift_max, progress_handle,
@@ -293,10 +310,64 @@ class WaveformMisfit(object):
             self.time_shift_min, self.time_shift_max, msg_handle=Null(),
             normalize=False, set_attributes=True)
 
-
         return deepcopy(synthetics)
 
 
+    def description(self):
+        _level = {
+            0: 'readable pure Python',
+            1: 'fast pure Python',
+            2: 'numba',
+            3: 'Cython [deprecated]',
+            }[self.level]
+
+        _description = '\n'.join([
+            f'  Misfit function implementation: {_level}\n',
+            ])
+
+        if self.verbose > 1:
+            if self.norm=='L1' and self.normalize:
+                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)| dt / NF'
+
+            elif self.norm=='L2' and self.normalize:
+                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)|² dt / NF'
+
+            elif self.norm=='hybrid' and self.normalize:
+                formula = 'Σ_{components} √(∫ |d(t) - s(t-t_s)|² dt / NF)'
+
+            elif self.norm=='L1' and not self.normalize:
+                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)| dt'
+
+            elif self.norm=='L2' and not self.normalize:
+                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)|² dt'
+
+            elif self.norm=='hybrid' and not self.normalize:
+                formula = 'Σ_{components} √(∫ |d(t) - s(t-t_s)|² dt)'
+
+            _description += \
+f"""
+      Evaluates
+        {formula}
+
+      where the components are
+        {self.time_shift_groups}
+
+      and where
+        d(t) is observed data
+        s(t) is synthetic data
+"""
+
+            if self.time_shift_min != self.time_shift_max:
+                _description +=\
+                    '        t_s is a time shift\n'
+
+            if self.normalize:
+                _description +=\
+                    '        NF = ∫ |d(t)|² dt is a normalization factor\n'
+
+        return _description
+
+         
 
 #
 # for backward compatibility

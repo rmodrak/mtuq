@@ -77,14 +77,16 @@ def grid_search(data, greens, misfit, origins, sources,
       reduces to ``_grid_search_serial``.
 
     """
-
-    # check input arguments
+    # check grid
     origins = iterable(origins)
     for origin in origins:
         assert type(origin) is Origin
 
     if type(sources) not in (Grid, UnstructuredGrid):
         raise TypeError
+
+    size = len(origins)*sources.size
+
 
     if _is_mpi_env():
         from mpi4py import MPI
@@ -98,15 +100,28 @@ def grid_search(data, greens, misfit, origins, sources,
     # print debugging information
     if verbose>0 and _is_mpi_env() and iproc==0:
 
-        print('  Number of grid points: %.3e' %\
-            (len(origins)*len(sources)))
+        print(f'  Misfit function type: {type(misfit).__name__}\n')
 
-        print('  Number of MPI processes: %d\n' % nproc)
+        try:
+            print(misfit.description())
+        except:
+            pass
+
+        print('  Number of misfit evaluations: {:,}\n'.format(size))
+        print('  Number of MPI processes: {:,}'.format(nproc))
+        print('  Number of evaluations per process: {:,}\n'.format(size//nproc))
+
 
     elif verbose>0 and not _is_mpi_env():
 
-        print('  Number of misfit evaluations: %.3e\n' %\
-            (len(origins)*len(sources)))
+        print(f'  Misfit function type: {type(misfit).__name__}\n')
+
+        try:
+            print(misfit.description())
+        except:
+            pass
+
+        print('  Number of misfit evaluations: {:,}\n'.format(size))
 
 
     if _is_mpi_env():
