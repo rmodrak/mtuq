@@ -3,7 +3,7 @@ import numpy as np
 from numba import njit, prange
 from math import fabs, pow
 
-@njit(parallel=False,cache=False)
+@njit(parallel=False, cache=False)
 def misfit(data_data, greens_data, greens_greens,
                  sources, groups, weights,
                  hybrid_norm, dt, NPAD1, NPAD2,
@@ -19,7 +19,24 @@ def misfit(data_data, greens_data, greens_greens,
     results = np.zeros((NSRC, 1), dtype=np.float64)
     cc = np.zeros(NPAD, dtype=np.float64)
 
+    if msg_percent > 0:
+      msg_interval = msg_percent/100.*msg_stop
+      msg_count = 100./msg_percent*msg_start/msg_stop
+      iter = msg_start
+      next_iter = msg_count*msg_interval
+    else:
+      iter = 0
+      next_iter = NSRC+1
+
+
     for isrc in range(NSRC):
+        # display progress message
+        if iter >= next_iter:
+            print("  percent finished: ", (msg_percent*msg_count))
+            msg_count += 1;
+            next_iter = msg_count*msg_interval
+        iter += 1
+
         L2_sum = 0.0
 
         for ista in range(NSTA):
