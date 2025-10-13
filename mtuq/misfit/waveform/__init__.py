@@ -47,7 +47,7 @@ class WaveformMisfit(object):
     ..  r1**2 + r1**2 + ...
 
     - ``'L1'``: conventional L1 norm (slow)
-    ..  \|r1\| + \|r2\| + ...
+    ..  \\|r1\\| + \\|r2\\| + ...
 
     - ``'hybrid'``: hybrid L1-L2 norm (much faster than L1 but still robust)
     ..  (r11**2 + r12**2 + ...)**0.5 + (r21**2 + r22**2 + ...)**0.5 + ...
@@ -320,6 +320,7 @@ class WaveformMisfit(object):
 
 
     def description(self):
+        _type = type(self).__name__
         _level = {
             0: 'readable pure Python',
             1: 'fast pure Python',
@@ -328,48 +329,54 @@ class WaveformMisfit(object):
             }[self.level]
 
         _description = '\n'.join([
-            f'  Misfit function implementation: {_level}\n',
+            f'    Misfit function type:\n    {_type}\n',
+            f'    Misfit function implementation:\n    {_level}\n',
             ])
 
         if self.verbose > 1:
-            if self.norm=='L1' and self.normalize:
-                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)| dt / NF'
 
-            elif self.norm=='L2' and self.normalize:
-                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)|² dt / NF'
+            if self.norm=='L1':
+                formula = 'Σ ∫ |d(t) - s(t-t_s)| dt / NF'
 
-            elif self.norm=='hybrid' and self.normalize:
-                formula = 'Σ_{components} √(∫ |d(t) - s(t-t_s)|² dt / NF)'
+            elif self.norm=='L2':
+                formula = 'Σ ∫ |d(t) - s(t-t_s)|² dt / NF'
 
-            elif self.norm=='L1' and not self.normalize:
-                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)| dt'
+            elif self.norm=='hybrid':
+                formula = 'Σ √(∫ |d(t) - s(t-t_s)|² dt) / NF'
 
-            elif self.norm=='L2' and not self.normalize:
-                formula = 'Σ_{components} ∫ |d(t) - s(t-t_s)|² dt'
+            if self.normalize:
+                if self.norm=='L1':
+                    NF = 'Σ ∫ |d(t)| dt'
 
-            elif self.norm=='hybrid' and not self.normalize:
-                formula = 'Σ_{components} √(∫ |d(t) - s(t-t_s)|² dt)'
+                elif self.norm=='L2':
+                    NF = 'Σ ∫ |d(t)|² dt'
+
+                elif self.norm=='hybrid':
+                    NF = 'Σ √(∫ |d(t)|² dt)'
+
 
             _description += \
 f"""
-      Evaluates
-        {formula}
+    Misfit function description:
 
-      where the components are
-        {self.time_shift_groups}
+    Evaluates
+      {formula}
 
-      and where
-        d(t) is observed data
-        s(t) is synthetic data
+    where the sum is over stations and components
+      {self.time_shift_groups}
+
+    and where
+      d(t) is observed data
+      s(t) is synthetic data
 """
 
             if self.time_shift_min != self.time_shift_max:
                 _description +=\
-                    '        t_s is a time shift\n'
+                    f'      t_s is a cross-correlation time shift\n'
 
             if self.normalize:
                 _description +=\
-                    '        NF = ∫ |d(t)|² dt is a normalization factor\n'
+                    f'      NF = {NF} is a normalization factor\n'
 
         return _description
 

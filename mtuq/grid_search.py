@@ -99,9 +99,6 @@ def grid_search(data, greens, misfit, origins, sources,
 
     # print debugging information
     if verbose>0 and _is_mpi_env() and iproc==0:
-
-        print(f'  Misfit function type: {type(misfit).__name__}\n')
-
         try:
             print(misfit.description())
         except:
@@ -113,9 +110,6 @@ def grid_search(data, greens, misfit, origins, sources,
 
 
     elif verbose>0 and not _is_mpi_env():
-
-        print(f'  Misfit function type: {type(misfit).__name__}\n')
-
         try:
             print(misfit.description())
         except:
