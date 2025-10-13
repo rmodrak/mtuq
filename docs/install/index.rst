@@ -1,7 +1,7 @@
 Installation
 ============
 
-We recommend installing MTUQ under Miniforge, which can be obtained following `these instructions <https://conda-forge.org/download/>`_.
+We recommend installing MTUQ under `Miniforge <https://conda-forge.org/download/>`_.
 
 
 To install MTUQ, first download the source code:
@@ -17,7 +17,7 @@ Create a conda virtual environment:
 .. code::
 
    conda create --name=mtuq
-   cona activate mtuq
+   conda activate mtuq
 
 
 Then install in editable mode:
