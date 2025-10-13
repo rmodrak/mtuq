@@ -95,6 +95,7 @@ if __name__=='__main__':
         time_shift_min=-2.,
         time_shift_max=+2.,
         time_shift_groups=['ZR'],
+        normalize=False,
         )
 
     misfit_rayleigh = Misfit(
@@ -102,6 +103,7 @@ if __name__=='__main__':
         time_shift_min=-10.,
         time_shift_max=+10.,
         time_shift_groups=['ZR'],
+        normalize=False,
         )
 
     misfit_love = Misfit(
@@ -109,6 +111,7 @@ if __name__=='__main__':
         time_shift_min=-10.,
         time_shift_max=+10.,
         time_shift_groups=['T'],
+        normalize=False,
         )
 
 
@@ -221,6 +224,7 @@ if __name__=='__main__':
         data_sw, greens_sw, misfit_love, origin, grid)
 
     if comm.rank==0:
+        print(results_bw, results_rayleigh, results_love)
 
         results_sum = results_bw + results_rayleigh + results_love
 

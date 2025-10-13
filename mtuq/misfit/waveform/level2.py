@@ -38,7 +38,7 @@ def misfit(data, greens, sources, norm, time_shift_groups,
     # collect user-supplied data weights
     weights = _get_weights(data, stations, components)
 
-    # which components will be used to determine time shifts (boolean array)?
+    # which components will be used to determine time shifts? (boolean array)
     groups = _get_groups(time_shift_groups, components)
 
 
