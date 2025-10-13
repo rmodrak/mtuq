@@ -11,12 +11,12 @@ from mtuq.misfit.waveform._stats import _flatten, calculate_norm_data
 from mtuq.misfit.waveform.level1 import correlate
 from mtuq.util.math import to_mij, to_rtp
 from mtuq.util.signal import get_components, get_time_sampling
-from mtuq.misfit.waveform import numba_L2
+from mtuq.misfit.waveform import ext_numba
 
 
 def misfit(data, greens, sources, norm, time_shift_groups,
     time_shift_min, time_shift_max, msg_handle, debug_level=0,
-    normalize=False):
+    normalize=False, ext='numba'):
     """
     Data misfit function (fast Python/C version)
 
@@ -76,21 +76,27 @@ def misfit(data, greens, sources, norm, time_shift_groups,
         msg_args = [0, 0, 0]
 
     #
-    # call C extension
+    # call extension
     #
 
     start_time = time.time()
 
-    if norm in ['L2', 'hybrid']:
-        results = numba_L2.misfit(
-           data_data, greens_data, greens_greens, sources, groups, weights,
-           hybrid_norm, dt, padding[0], padding[1], debug_level, *msg_args)
+    if norm in ['L2', 'hybrid'] and ext.lower()=='numba':
+        handle = ext_numba.misfit_L2
 
-    elif norm in ['L1']:
-        raise NotImplementedError
+    if norm in ['L1'] and ext.lower()=='numba':
+        handle = ext_numba.misfit_L2
+
+    elif norm in ['L2', 'hybrid'] and ext.lower()=='cython':
+        from mtuq.misfit.waveform import ext_cython
+        handle = ext_cython.misfit_L2
+
+    results = handle(
+       data_data, greens_data, greens_greens, sources, groups, weights,
+       hybrid_norm, dt, padding[0], padding[1], debug_level, *msg_args)
 
     if debug_level > 0:
-      print('  Elapsed time (C extension) (s): %f' % \
+      print('\n  Elapsed time (extension module) (s): %f' % \
           (time.time() - start_time))
 
     if normalize:

@@ -71,8 +71,13 @@ SYNGINE = "mtuq.io.clients.syngine:Client"
 [tool.setuptools]
 packages = ["mtuq"]
 
+
 #[tool.setuptools.package-data]
 #"mtuq" = ["data/examples/*.tgz", "data/tests/*.tgz"]
 
+
+## support for Cython extensions in pyproject.toml remains experimental?
 #[tool.setuptools.extension]
 # "mtuq.some_module" = { sources = ["mtuq/some_module.pyx"], extra_compile_args = [...] }
+
+

@@ -4,7 +4,7 @@ from numba import njit, prange
 from math import fabs, pow
 
 @njit(parallel=False, cache=False)
-def misfit(data_data, greens_data, greens_greens,
+def misfit_L2(data_data, greens_data, greens_greens,
                  sources, groups, weights,
                  hybrid_norm, dt, NPAD1, NPAD2,
                  debug_level, msg_start, msg_stop, msg_percent):

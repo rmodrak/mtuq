@@ -185,7 +185,7 @@ class WaveformMisfit(object):
         if level is None:
             level = self.level
 
-        assert level in [0,1,2]
+        assert level in [0,1,2,3]
 
         # normally misfit is evaluated over a grid of sources; `iterable`
         # makes things work if just a single source is given
@@ -225,6 +225,12 @@ class WaveformMisfit(object):
                 data, greens, sources, self.norm, self.time_shift_groups,
                 self.time_shift_min, self.time_shift_max, progress_handle,
                 normalize=normalize)
+
+        if level==3:
+            return level2.misfit(
+                data, greens, sources, self.norm, self.time_shift_groups,
+                self.time_shift_min, self.time_shift_max, progress_handle,
+                normalize=normalize, ext='Cython') 
 
 
     def collect_attributes(self, data, greens, source, normalize=False):

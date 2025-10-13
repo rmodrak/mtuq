@@ -1,15 +1,17 @@
 
-C extension modules
--------------------
+Extension modules
+-----------------
 
-In addition to the default numba implementation, MTUQ includes C extension modules for accelerating computational bottlenecks.
+In addition to the default numba implementation, MTUQ includes C and Cython extension modules for accelerating computational bottlenecks.
+
+As of July 2025, these extensions are no longer maintained.
 
 
 
-Compiling C extensions
-----------------------
+Compiling Cython extensions
+---------------------------
 
-The C extension modules can be compiled using the `c-compiler  <https://anaconda.org/conda-forge/compilers>`_ conda-forge package, which seems to work well on most Linux, Mac, and Windows systems.
+The Cython extension modules can be compiled using the `c-compiler  <https://anaconda.org/conda-forge/compilers>`_ conda-forge package, which seems to work well on most Linux, Mac, and Windows systems.
 
 .. code::
 
@@ -24,8 +26,7 @@ To compile the C extensions:
     ./build_ext.sh
 
 
-Troubleshooting Cython compilation
-----------------------------------
+To troubleshoot Cython installation, users can try modifying the Cython source code files given in `setup.py`, or try varying the compilation settings determined by `setup.py`, the `CC` environment variable, the conda environment, and the underlying system environment.
 
-To troubleshoot Cython installation, users can try modifying the C source code files listed in `setup.py`, or try varying the compilation settings determined by `setup.py`, the `CC` environment variable, the conda environment, and the underlying system environment.
+
 

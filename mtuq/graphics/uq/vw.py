@@ -311,7 +311,7 @@ def _magnitudes_vw_regular(da):
         })
 
 
-def _variance_reduction_vw_regular(da, data_norm):
+def _variance_reduction_vw_regular(da, data_norm, percentage=False):
     """ For each source type, extracts maximum variance reduction
     """
     variance_reduction = 1. - da.copy()/data_norm
@@ -319,8 +319,8 @@ def _variance_reduction_vw_regular(da, data_norm):
     variance_reduction = variance_reduction.max(
         dim=('origin_idx', 'rho', 'kappa', 'sigma', 'h'))
 
-    # widely-used convention - variance reducation as a percentage
-    variance_reduction.values *= 100.
+    if percentage:
+        variance_reduction.values *= 100.
 
     return variance_reduction.assign_attrs({
         'best_mt': _min_mt(da),

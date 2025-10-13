@@ -13,7 +13,7 @@ try:
     from Cython.Build import cythonize
 
     ext_modules=cythonize(
-        "mtuq/misfit/waveform/cython_L2.pyx",
+        "mtuq/misfit/waveform/ext_cython.pyx",
          compiler_directives={'language_level': "3"}),
 
     include_dirs=[numpy.get_include()],

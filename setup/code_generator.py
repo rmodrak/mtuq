@@ -211,9 +211,9 @@ if __name__=='__main__':
     # implementations against a simple pure Python implementation.
     # These implementations correspond to:
     #
-    #   optimization_level=0: simple pure Python
-    #   optimization_level=1: fast pure Python
-    #   optimization_level=2: fast Python/C
+    #   level=0: simple pure Python
+    #   level=1: fast pure Python
+    #   level=2: fast Python/C
     #
     # In running the test in our environment, we observe that the two pure 
     # Python implementations agree almost exactly.  On the other hand, the
@@ -225,7 +225,7 @@ if __name__=='__main__':
     # Possibly relevant is the fact that C extensions are compiled with
     # `-Ofast` flag, as specified in `setup.py`.
     #
-    # Note that the `optimization_level` keyword argument does not correspond
+    # Note that the `level` keyword argument does not correspond
     # at all to C compiler optimization flags.  For example, the NumPy binaries
     # called by the simple pure Python misfit function are probably compiled 
     # using a nonzero optimization level?
@@ -1006,13 +1006,13 @@ Main_TestMisfit="""
     print('Evaluating body wave misfit...\\n')
 
     results_0 = misfit_bw(
-        data_bw, greens_bw, grid, optimization_level=0)
+        data_bw, greens_bw, grid, level=0)
 
     results_1 = misfit_bw(
-        data_bw, greens_bw, grid, optimization_level=1)
+        data_bw, greens_bw, grid, level=1)
 
     results_2 = misfit_bw(
-        data_bw, greens_bw, grid, optimization_level=2)
+        data_bw, greens_bw, grid, level=2)
 
     print('  optimization level:  0\\n', 
           '  argmin:  %d\\n' % results_0.argmin(), 
@@ -1034,13 +1034,13 @@ Main_TestMisfit="""
     print('Evaluating surface wave misfit...\\n')
 
     results_0 = misfit_sw(
-        data_sw, greens_sw, grid, optimization_level=0)
+        data_sw, greens_sw, grid, level=0)
 
     results_1 = misfit_sw(
-        data_sw, greens_sw, grid, optimization_level=1)
+        data_sw, greens_sw, grid, level=1)
 
     results_2 = misfit_sw(
-        data_sw, greens_sw, grid, optimization_level=2)
+        data_sw, greens_sw, grid, level=2)
 
     print('  optimization level:  0\\n', 
           '  argmin:  %d\\n' % results_0.argmin(), 
@@ -1879,13 +1879,13 @@ if __name__=='__main__':
             'Reading Greens functions...\\\\n\\\\n'+
             '  Downloads can sometimes take as long as a few hours!\\\\n'
             ),
-            'download_greens_tensors\(stations, origin, model\)',
+           r'download_greens_tensors\(stations, origin, model\)',
             'download_greens_tensors(stations, origin, model, verbose=True)',
             ))
         file.write(
             replace(
             WrapUp_GridSearch_DoubleCoupleMagnitudeDepth,
-            'DC\+Z',
+           r'DC\+Z',
             'DC+XY',
             'misfit_depth',
             'misfit_latlon',
@@ -2044,7 +2044,7 @@ if __name__=='__main__':
         file.write(
             replace(
             Main1_SerialGridSearch_DoubleCouple,
-            'greens = download_greens_tensors\(stations, origin, model\)',
+           r'greens = download_greens_tensors\(stations, origin, model\)',
             'db = open_db(path_greens, format=\'FK\', model=model)\n    '
            +'greens = db.get_greens_tensors(stations, origin)',
             ))
@@ -2110,7 +2110,7 @@ if __name__=='__main__':
         file.write(
             replace(
             Main1_SerialGridSearch_DoubleCouple,
-            'greens = download_greens_tensors\(stations, origin, model\)',
+           r'greens = download_greens_tensors\(stations, origin, model\)',
             'db = open_db(path_greens, format=\'FK\', model=model)\n    '
            +'greens = db.get_greens_tensors(stations, origin)',
             ))
