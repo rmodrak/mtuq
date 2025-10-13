@@ -119,7 +119,7 @@ class WaveformMisfit(object):
     .. note:: 
 
       Cython extension modules are no longer automatically compiled during
-      during installation, but can be manually compiled via `build_ext.sh`.
+      installation, but can be manually compiled via `build_ext.sh`.
 
     """
 
@@ -336,15 +336,17 @@ class WaveformMisfit(object):
         if self.verbose > 1:
 
             if self.norm=='L1':
-                formula = 'Σ ∫ |d(t) - s(t-t_s)| dt / NF'
+                formula = 'Σ ∫ |d(t) - s(t-t_s)| dt'
 
             elif self.norm=='L2':
-                formula = 'Σ ∫ |d(t) - s(t-t_s)|² dt / NF'
+                formula = 'Σ ∫ |d(t) - s(t-t_s)|² dt'
 
             elif self.norm=='hybrid':
-                formula = 'Σ √(∫ |d(t) - s(t-t_s)|² dt) / NF'
+                formula = 'Σ √(∫ |d(t) - s(t-t_s)|² dt)'
 
             if self.normalize:
+                formula = '('+formula+')' + ' / NF'
+
                 if self.norm=='L1':
                     NF = 'Σ ∫ |d(t)| dt'
 
