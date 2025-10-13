@@ -4,7 +4,7 @@ Imports="""
 import os
 import numpy as np
 
-from mtuq import read, open_db, download_greens_tensors
+from mtuq import read, open_db, download_greens
 from mtuq.event import Origin
 from mtuq.graphics import plot_data_greens2, plot_beachball, plot_misfit_dc
 from mtuq.grid import DoubleCoupleGridRegular
@@ -772,7 +772,7 @@ Main_GridSearch="""
 
 
         print('Reading Greens functions...\\n')
-        greens = download_greens_tensors(stations, origin, model)
+        greens = download_greens(stations, origin, model)
 
         print('Processing Greens functions...\\n')
         greens.convolve(wavelet)
@@ -836,7 +836,7 @@ Main1_SerialGridSearch_DoubleCouple="""
 
 
     print('Reading Greens functions...\\n')
-    greens = download_greens_tensors(stations, origin, model)
+    greens = download_greens(stations, origin, model)
 
 
     print('Processing Greens functions...\\n')
@@ -1879,8 +1879,8 @@ if __name__=='__main__':
             'Reading Greens functions...\\\\n\\\\n'+
             '  Downloads can sometimes take as long as a few hours!\\\\n'
             ),
-           r'download_greens_tensors\(stations, origin, model\)',
-            'download_greens_tensors(stations, origin, model, verbose=True)',
+           r'download_greens\(stations, origin, model\)',
+            'download_greens(stations, origin, model, verbose=True)',
             ))
         file.write(
             replace(
@@ -2005,7 +2005,7 @@ if __name__=='__main__':
     #    file.write(
     #        replace(
     #        Main_GridSearch,
-    #        'greens = download_greens_tensors\(stations, origin, model\)',
+    #        'greens = download_greens\(stations, origin, model\)',
     #        'db = open_db(path_greens, format=\'SPECFEM3D_SGT\', model=model)\n        '
     #       +'greens = db.get_greens_tensors(stations, origin)',
     #       ))
@@ -2044,7 +2044,7 @@ if __name__=='__main__':
         file.write(
             replace(
             Main1_SerialGridSearch_DoubleCouple,
-           r'greens = download_greens_tensors\(stations, origin, model\)',
+           r'greens = download_greens\(stations, origin, model\)',
             'db = open_db(path_greens, format=\'FK\', model=model)\n    '
            +'greens = db.get_greens_tensors(stations, origin)',
             ))
@@ -2110,7 +2110,7 @@ if __name__=='__main__':
         file.write(
             replace(
             Main1_SerialGridSearch_DoubleCouple,
-           r'greens = download_greens_tensors\(stations, origin, model\)',
+           r'greens = download_greens\(stations, origin, model\)',
             'db = open_db(path_greens, format=\'FK\', model=model)\n    '
            +'greens = db.get_greens_tensors(stations, origin)',
             ))

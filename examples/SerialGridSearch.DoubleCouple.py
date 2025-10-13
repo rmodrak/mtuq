@@ -3,7 +3,7 @@
 import os
 import numpy as np
 
-from mtuq import read, open_db, download_greens_tensors
+from mtuq import read, open_db, download_greens
 from mtuq.event import Origin
 from mtuq.graphics import plot_data_greens2, plot_beachball, plot_misfit_dc
 from mtuq.grid import DoubleCoupleGridRegular
@@ -142,7 +142,7 @@ if __name__=='__main__':
 
 
     print('Reading Greens functions...\n')
-    greens = download_greens_tensors(stations, origin, model)
+    greens = download_greens(stations, origin, model)
 
 
     print('Processing Greens functions...\n')

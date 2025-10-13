@@ -2,7 +2,7 @@
 import os
 import numpy as np
 
-from mtuq import read, open_db, download_greens_tensors
+from mtuq import read, open_db, download_greens
 from mtuq.event import MomentTensor
 from mtuq.graphics import plot_waveforms2, plot_beachball, plot_misfit_dc
 from mtuq.grid import DoubleCoupleGridRegular
