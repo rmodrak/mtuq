@@ -1,11 +1,18 @@
 
+.. warning::
+
+    As of October 2025, MTUQ's C and Cython extensions are still present in the source code, but no longer active following the default conda or pip installations.
+
+
+.. warning::
+
+    As of July 2025,  MTUQ's C and Cython extensions are deprecated and no longer maintained.
+
+
 Extension modules
 -----------------
 
-In addition to the default numba implementation, MTUQ includes C and Cython extension modules for accelerating computational bottlenecks.
-
-As of July 2025, these extensions are no longer maintained.
-
+MTUQ includes C and Cython extension modules for accelerating computational bottlenecks.
 
 
 Compiling Cython extensions
@@ -17,9 +24,7 @@ The Cython extension modules can be compiled using the `c-compiler  <https://ana
 
     conda install c-compiler
 
-To experiment with different compilation settings, users are free to comment out `c-compiler` in `env.yaml` and specify a different compiler via the `CC` environment vairable.
-
-To compile the C extensions:
+To compile the Cython extensions:
 
 .. code::
 

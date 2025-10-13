@@ -847,6 +847,11 @@ def _plot_directions_text(axis):
 
 def _development_warning():
     warnings.warn(
-        "\n You are using the new matplotlib visualization backend, which is currently being tested. \n The figures might look slightly different from previous results using the GMT backend. \n If you encounter any issues or unexpected behavior, please report them on GitHub.",
-        UserWarning
-    )
+       """'\n'
+    You are using the new matplotlib visualization backend, which is currently
+    being tested. If you encounter issues or unexpected behavior, please report
+    them on GitHub.
+       """,
+       UserWarning
+       )
+    print()
