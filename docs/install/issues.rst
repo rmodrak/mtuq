@@ -38,9 +38,9 @@ Since NumPy and conda appear to respect the `TMPDIR` environment variable, a use
 NumPy compatibility warnings
 ----------------------------
 
-Following the `NumPy v2.0.0 <https://github.com/numpy/numpy/releases/tag/v2.0.0#:~:text=including%20an%20ABI%20break>`_ release, `numpy.ndarray size changed` and other warning messages have been `widely reported <https://stackoverflow.com/a/66743692>`_.  
+Following the `NumPy v2.0.0 <https://github.com/numpy/numpy/releases/tag/v2.0.0#:~:text=including%20an%20ABI%20break>`_ release, `"numpy.ndarray size changed`" and other warnings have been `widely reported <https://stackoverflow.com/a/66743692>`_.  
 
-For the time being we have specified ``numpy<2`` for the default installation.
+For the time being, we have specified ``numpy<2`` for the default installation.
 
 
 Accelerating bottlenecks
