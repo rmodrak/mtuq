@@ -212,7 +212,7 @@ def timer(func):
             start_time = time.time()
             output = func(*args, **kwargs)
             elapsed_time = time.time() - start_time
-            print('\n  Elapsed time (s): %f\n' % elapsed_time)
+            print('\n    Elapsed time (s): %.3f\n' % elapsed_time)
             return output
         else:
             return func(*args, **kwargs)

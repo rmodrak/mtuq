@@ -32,7 +32,7 @@ def misfit_L2(data_data, greens_data, greens_greens,
     for isrc in range(NSRC):
         # display progress message
         if iter >= next_iter:
-            print("  percent finished: ", (msg_percent*msg_count))
+            print("    percent finished: ", (msg_percent*msg_count))
             msg_count += 1;
             next_iter = msg_count*msg_interval
         iter += 1

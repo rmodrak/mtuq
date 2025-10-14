@@ -3,7 +3,7 @@ import numpy as np
 
 from copy import deepcopy
 from mtuq.misfit.waveform import level0, level1, level2
-from mtuq.misfit.waveform._stats import estimate_sigma, calculate_norm_data
+from mtuq.misfit.waveform._stats import estimate_sigma, calculate_norm_data, _flatten
 from mtuq.util import Null, iterable, warn
 from mtuq.util.math import isclose, list_intersect, list_intersect_with_indices
 from mtuq.util.signal import check_padding, get_components, isempty
@@ -320,21 +320,9 @@ class WaveformMisfit(object):
 
 
     def description(self):
-        _type = type(self).__name__
-        _level = {
-            0: 'readable pure Python',
-            1: 'fast pure Python',
-            2: 'numba',
-            3: 'Cython [deprecated]',
-            }[self.level]
-
-        _description = '\n'.join([
-            f'    Misfit function type:\n    {_type}\n',
-            f'    Misfit function implementation:\n    {_level}\n',
-            ])
+        _description = ''
 
         if self.verbose > 1:
-
             if self.norm=='L1':
                 formula = 'Σ ∫ |d(t) - s(t-t_s)| dt'
 
@@ -356,16 +344,13 @@ class WaveformMisfit(object):
                 elif self.norm=='hybrid':
                     NF = 'Σ √(∫ |d(t)|² dt)'
 
-
             _description += \
-f"""
-    Misfit function description:
-
-    Evaluates
+f"""\
+    Misfit function evaluates
       {formula}
 
-    where the sum is over stations and components
-      {self.time_shift_groups}
+    where the sum is over components
+      {', '.join(_flatten(self.time_shift_groups))}
 
     and where
       d(t) is observed data
@@ -379,6 +364,22 @@ f"""
             if self.normalize:
                 _description +=\
                     f'      NF = {NF} is a normalization factor\n'
+
+            _description += '\n'
+
+
+        _type = type(self).__name__
+        _level = {
+            0: 'readable pure Python',
+            1: 'fast pure Python',
+            2: 'numba',
+            3: 'Cython [deprecated]',
+            }[self.level]
+
+        _description += '\n'.join([
+            f'    Misfit function type:\n    {_type}\n',
+            f'    Misfit function implementation:\n    {_level}\n',
+            ])
 
         return _description
 

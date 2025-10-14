@@ -104,9 +104,9 @@ def grid_search(data, greens, misfit, origins, sources,
         except:
             pass
 
-        print('  Number of misfit evaluations: {:,}\n'.format(size))
-        print('  Number of MPI processes: {:,}'.format(nproc))
-        print('  Number of evaluations per process: {:,}\n'.format(size//nproc))
+        print('    Number of misfit evaluations: {:,}\n'.format(size))
+        print('    Number of MPI processes: {:,}'.format(nproc))
+        print('    Number of evaluations per process: {:,}\n'.format(size//nproc))
 
 
     elif verbose>0 and not _is_mpi_env():
@@ -115,7 +115,7 @@ def grid_search(data, greens, misfit, origins, sources,
         except:
             pass
 
-        print('  Number of misfit evaluations: {:,}\n'.format(size))
+        print('    Number of misfit evaluations: {:,}\n'.format(size))
 
 
     if _is_mpi_env():
