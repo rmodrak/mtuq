@@ -379,23 +379,23 @@ def open_ds(filename, format=None):
                 raise Exception('File format not recognized: %s' % filename)
 
     if format.upper() in ['H5', 'HDF','HDF5']:
-        return _open_df(filename)
+        return open_df(filename)
 
     elif format.upper() in ['NC', 'NC4', 'NETCDF', 'NETCDF4']:
-        return _open_da(filename)
+        return open_da(filename)
 
     else:
         raise Exception('File format not supported: %s' % filename)
 
 
-def _open_da(filename):
+def open_da(filename):
     """ Reads MTUQDataArray from NetCDF file
     """
     da = xarray.open_dataarray(filename)
     return MTUQDataArray(data=da.values, coords=da.coords, dims=da.dims)
 
 
-def _open_df(filename):
+def open_df(filename):
     """ Reads MTUQDataFrame from HDF5 file
     """
     df = pandas.read_hdf(filename)
