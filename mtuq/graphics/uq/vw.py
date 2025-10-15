@@ -231,10 +231,21 @@ def _plot_vw(filename, da, show_best=True, show_tradeoffs=False,
 # regularly-spaced grids
 #
 
-def _misfit_vw_regular(da):
+def _misfit_vw_regular(da, slice_magnitude=False, slice_origin=True):
     """ For each source type, extracts minimum misfit
     """
-    misfit = da.min(dim=('origin_idx', 'rho', 'kappa', 'sigma', 'h'))
+    # what are the indices of the best source?
+    argmin = {}
+    for dim,idx in zip(da.dims, np.unravel_index(da.argmin(), da.shape)):
+        argmin[dim] = idx
+
+    if slice_origin:
+        da = da.isel(origin_idx=[argmin['origin_idx']])
+
+    if slice_magnitude:
+        da = da.isel(rho=[argmin['rho']])
+
+    misfit = da.min(dim=('rho', 'kappa', 'sigma', 'h', 'origin_idx'))
 
     return misfit.assign_attrs({
         'best_mt': _min_mt(da),
@@ -281,7 +292,7 @@ def _marginals_vw_regular(da, var):
 
 
 def _magnitudes_vw_regular(da):
-    """ For each source type, calculates magnitude of best-fitting moment tensor
+    """ For each source type, extracts magnitude of best-fitting moment tensor
     """
     v = da.coords['v']
     w = da.coords['w']
@@ -558,7 +569,4 @@ def _check(ds):
     """
     if type(ds) not in (DataArray, DataFrame, MTUQDataArray, MTUQDataFrame):
         raise TypeError("Unexpected grid format")
-
-
-
 
