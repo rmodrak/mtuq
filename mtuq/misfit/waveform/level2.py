@@ -84,12 +84,15 @@ def misfit(data, greens, sources, norm, time_shift_groups,
     if norm in ['L2', 'hybrid'] and ext.lower()=='numba':
         handle = ext_numba.misfit_L2
 
-    if norm in ['L1'] and ext.lower()=='numba':
+    elif norm in ['L1'] and ext.lower()=='numba':
         handle = ext_numba.misfit_L2
 
     elif norm in ['L2', 'hybrid'] and ext.lower()=='cython':
         from mtuq.misfit.waveform import ext_cython
         handle = ext_cython.misfit_L2
+
+    else:
+        raise NotImplementedError
 
     results = handle(
        data_data, greens_data, greens_greens, sources, groups, weights,
@@ -225,7 +228,7 @@ def _get_weights(data, stations, components):
 
 
 def _get_mask(data, stations, components):
-    # which components are absent from the data (boolean array)?
+    # which components are absent from the data? (boolean array)
 
     Ncomponents = len(components)
     Nstations = len(stations)
