@@ -24,7 +24,7 @@ Then install in editable mode:
 
 .. code::
 
-   conda env create --name=mtuq --file=env.yaml
+   conda env update --name=mtuq --file=env.yaml
 
 
 Unpack seismic waveforms used by examples:
