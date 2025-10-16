@@ -2,29 +2,51 @@
 Detailed notes
 ==============
 
-How metadata are read in
-------------------------
+How data are read in
+--------------------
 
-What matters in practice is simply that enough information is present in the SAC headers for ObsPy attributes to be populated.
+MTUQ natively supports only SAC file format. For reading SAC files, MTUQ uses only a thin wrapper over `obspy.read`.  Similarly, for storing waveform data, MTUQ uses only a thin layer over ObsPy `Stream`, `Trace` and `Stats` structures.  
 
-This follows because MTUQ uses only a thin wrapper over `obspy.read` for reading SAC files.  Similarly, for storing waveform data, MTUQ uses `obspy.Trace` and `obspy.Stats` data structures within its own `mtuq.Dataset` container.   
 
-The following ObsPy attributes must be correctly populated from SAC metadata: `stats.network`, `stats.station`, `stats.location`, `stats.sac.stala`, `stats.sac.stlo`, `stats.starttime`
+Another way of stating data and metadata requirements
+-----------------------------------------------------
+
+Because of how data are read in, SAC files must be ObsPy compliant and enough information must be present in SAC headers to populate ObsPy structures.
+
+In the end, all that's required is that the following ObsPy attributes are correctly determined:
+
+- `trace.stats.network`
+- `trace.stats.station`
+- `trace.stats.location`
+- `trace.stats.sac.stala`
+- `trace.stats.sac.stlo`
+- `trace.stats.deltat`
+- `trace.stats.starttime`
 
 
 How metadata are used
 ---------------------
 
-In MTUQ, `network`, `station`, and `location` codes are used for sorting individual waveforms into `mtuq.Datasets`.
+The above ObsPy attributes are used as follows:
 
-Station `latitude` and `longitude` are used to extract Green's functions at the correct locations, as well as for distance-dependent data processing.
+- `network`, `station`, and `location` codes are used for sorting individual waveforms into `mtuq.Datasets`
+- station `latitude` and `longitude` are needed to extract Green's functions, as well as for distance-dependent data processing
+- `starttimes` and `deltat` are used to align observations with synthetics during misfit evaluation
 
-Trace `starttime` and `endtime` are used during misfit evaluation to align observed waveforms correctly with synthetic waveforms.
+
+On time conventions
+-------------------
+
+The `starttime` of a SAC file is determined by combining a reference time (defined by multiple SAC headers) with an offset value (defined by the "begin time" or "B" header). Usually, the reference time represents a catalog origin time given as an actual UTC or GMT date and time.
+
+Other conventions are possible, however.  For example, synthetic inversions may involve a `t=0` reference time rather than an actual date and time. The only requirement is that the observed data follow the same convention as the Green's functions and synthetic data.
 
 
-Custom coordinate systems
+On geographic conventions
 -------------------------
 
-By default, distance and azimuth calculations are performed on station `latitude` and `longitude` values using ObsPy geodetic functions.
+By default, distance and azimuth calculations are performed on station latitudes and longitudes using ObsPy geodetic functions.
 
-To support local x,y coordinates, UTM coordinates, or other custom systems, these distance and azimuth functions (and also the meaning of the `latitude` and `longitude` values themselves) can be overridden through source code modifications.
+To support local `x,y` coordinates, UTM coordinates, or other custom systems, these distance and azimuth functions (and by extension, the meaning of the `latitude` and `longitude` values themselves) can be overridden through modifications to MTUQ's source code.  (We recommend an "editable" installation of MTUQ for such modifications.)
+
+
