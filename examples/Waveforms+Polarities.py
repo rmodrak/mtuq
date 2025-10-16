@@ -88,7 +88,28 @@ if __name__=='__main__':
     # unpicked
     #
 
-    polarities = np.array([-1, -1, -1, 1, 1, 0, 1, 1, -1, 1, 1, 1, 0, 1, 1, 1, -1, 1, 1, 0])
+    polarities_dict = {
+        "BMR":   0,
+        "DIV":  +1,
+        "EYAK": +1,
+        "PAX":  +1,
+        "SWD":  +1,
+        "TRF":  -1,
+        "PMR":  -1,
+        "AVAL": +1,
+        "BIGB": -1,
+        "BLAK": +1,
+        "DEVL": +1,
+        "HEAD": +1,
+        "KASH": -1,
+        "LSKI": -1,
+        "LSUM": +1,
+        "MPEN":  0,
+        "NSKI": +1,
+        "PERI": +1,
+        "SOLD":  0,
+        "TUPA":  1,
+        }
 
 
 
@@ -197,9 +218,13 @@ if __name__=='__main__':
     if comm.rank==0:
         print('Evaluating polarity misfit...\n')
 
+    polarities = np.zeros(len(stations))
+    for _i, station in enumerate(stations):
+        polarities[_i] = polarities_dict[station.station]
+        
     results_polarity = grid_search(
         polarities, greens_bw, polarity_misfit, origin, grid)
-
+        
 
     if comm.rank==0:
 
