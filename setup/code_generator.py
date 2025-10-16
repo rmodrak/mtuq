@@ -450,6 +450,7 @@ MisfitDefinitions="""
         time_shift_min=-2.,
         time_shift_max=+2.,
         time_shift_groups=['ZR'],
+        normalize=True,
         )
 
     misfit_sw = Misfit(
@@ -457,6 +458,7 @@ MisfitDefinitions="""
         time_shift_min=-10.,
         time_shift_max=+10.,
         time_shift_groups=['ZR','T'],
+        normalize=True,
         )
 
 """
@@ -631,6 +633,7 @@ MisfitDefinitions_DetailedExample="""
         time_shift_min=-2.,
         time_shift_max=+2.,
         time_shift_groups=['ZR'],
+        normalize=False,
         )
 
     misfit_rayleigh = Misfit(
@@ -638,6 +641,7 @@ MisfitDefinitions_DetailedExample="""
         time_shift_min=-10.,
         time_shift_max=+10.,
         time_shift_groups=['ZR'],
+        normalize=False,
         )
 
     misfit_love = Misfit(
@@ -645,6 +649,7 @@ MisfitDefinitions_DetailedExample="""
         time_shift_min=-10.,
         time_shift_max=+10.,
         time_shift_groups=['T'],
+        normalize=False,
         )
 
 """

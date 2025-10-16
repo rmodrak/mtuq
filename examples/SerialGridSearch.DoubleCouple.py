@@ -75,6 +75,7 @@ if __name__=='__main__':
         time_shift_min=-2.,
         time_shift_max=+2.,
         time_shift_groups=['ZR'],
+        normalize=True,
         )
 
     misfit_sw = Misfit(
@@ -82,6 +83,7 @@ if __name__=='__main__':
         time_shift_min=-10.,
         time_shift_max=+10.,
         time_shift_groups=['ZR','T'],
+        normalize=True,
         )
 
 
