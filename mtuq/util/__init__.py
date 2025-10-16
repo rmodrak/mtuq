@@ -157,24 +157,6 @@ def replace(string, *args):
     return string
 
 
-def timer(func):
-    """ Decorator for measuring execution time; prints elapsed time to
-        standard output
-    """
-    def timed_func(*args, **kwargs):
-        start_time = time.time()
-
-        output = func(*args, **kwargs)
-
-        if kwargs.get('verbose', True):
-            _elapsed_time = time.time() - start_time
-            print('  Elapsed time (s): %f\n' % _elapsed_time)
-
-        return output
-
-    return timed_func
-
-
 def basepath():
     """ MTUQ base directory
     """
@@ -230,7 +212,7 @@ def timer(func):
             start_time = time.time()
             output = func(*args, **kwargs)
             elapsed_time = time.time() - start_time
-            print('  Elapsed time (s): %f\n' % elapsed_time)
+            print('\n    Elapsed time (s): %.3f\n' % elapsed_time)
             return output
         else:
             return func(*args, **kwargs)

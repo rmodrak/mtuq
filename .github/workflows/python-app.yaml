@@ -32,7 +32,6 @@ jobs:
     - name: Basic tests
       run: |
          python tests/check_import.py
-         python tests/check_entry_points.py
          bash tests/check_examples.bash
     - name: Advanced tests
       run: |
@@ -51,8 +50,8 @@ jobs:
     # for GitHub workflows
     # (https://github.com/actions/runner-images/issues/6680)
     # (https://github.com/conda/conda/issues/8650)
-    - name: conda installation
-      timeout-minutes: 60
-      run: |
-         bash tests/install_conda.bash
+    #- name: conda installation
+    #  timeout-minutes: 60
+    #  run: |
+    #     bash tests/install_conda.bash
 

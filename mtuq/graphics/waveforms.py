@@ -269,7 +269,7 @@ def plot_data_greens1(
     synthetics = misfit.collect_synthetics(data, greens.select(origin), source)
 
     # calculate total misfit for display in figure header
-    total_misfit = misfit(data, greens.select(origin), source, optimization_level=0)
+    total_misfit = misfit(data, greens.select(origin), source, level=0)
 
     # prepare figure header
     if 'header' in kwargs:
@@ -319,10 +319,10 @@ def plot_data_greens2(filename,
 
     # calculate total misfit for display in figure header
     total_misfit_bw = misfit_bw(
-        data_bw, greens_bw.select(origin), source, optimization_level=0)
+        data_bw, greens_bw.select(origin), source, level=0)
 
     total_misfit_sw = misfit_sw(
-        data_sw, greens_sw.select(origin), source, optimization_level=0) 
+        data_sw, greens_sw.select(origin), source, level=0) 
 
 
     # prepare figure header
@@ -383,13 +383,13 @@ def plot_data_greens3(
     
     # calculate total misfit for display in figure header
     total_misfit_bw = misfit_bw(
-        data_bw, greens_bw.select(origin), source, optimization_level=0)
+        data_bw, greens_bw.select(origin), source, level=0)
 
     total_misfit_rayl = misfit_rayl(
-        data_rayl, greens_rayl.select(origin), source, optimization_level=0) 
+        data_rayl, greens_rayl.select(origin), source, level=0) 
 
     total_misfit_love = misfit_love(
-        data_love, greens_love.select(origin), source, optimization_level=0)
+        data_love, greens_love.select(origin), source, level=0)
 
     # prepare figure header
     if 'header' in kwargs:

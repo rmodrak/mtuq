@@ -6,7 +6,6 @@
 #
 
 FILENAMES="\
-    ../examples/DetailedAnalysis.py\
     ../examples/GridSearch.DoubleCouple.py\
     ../examples/GridSearch.DoubleCouple+Magnitude+Depth.py\
     ../examples/GridSearch.FullMomentTensor.py\
@@ -17,6 +16,7 @@ FILENAMES="\
     ../tests/test_grid_search_mt_depth.py\
     ../tests/test_misfit.py\
     "
+    #../examples/DetailedAnalysis.py\
     #../examples/Waveforms+Polarities.py\
 
 

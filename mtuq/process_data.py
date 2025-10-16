@@ -72,9 +72,6 @@ class ProcessData(object):
     - ``'FK_metadata'``
       reads P, S travel times from FK metadata
 
-    - ``'CPS_metadata'``
-      reads P, S travel times from CPS metadata
-
     - ``'SAC_metadata'``
       reads P, S travel times from SAC metadata fields `t5`, `t6`
 
@@ -359,18 +356,6 @@ class ProcessData(object):
             self.FK_database = FK_database
             self.FK_model = FK_model
 
-        elif self.pick_type == 'CPS_metadata':
-            assert CPS_database is not None
-            assert exists(CPS_database)
-            print(CPS_database)
-            if CPS_model is None:
-                CPS_model = basename(CPS_database)
-                # Remove model name if no model is provided
-                # CPS_database = CPS_database[:-(len(CPS_model) + 1)]
-                print(CPS_database)
-            self.CPS_database = CPS_database
-            self.CPS_model = CPS_model
-
         elif self.pick_type == 'SAC_metadata':
             pass
 
@@ -594,49 +579,7 @@ class ProcessData(object):
                 picks['S'] = float(sac_headers.t2)
 
             elif self.pick_type == 'CPS_metadata':
-                dep_desired = "{:06.1f}".format(
-                    np.ceil(origin.depth_in_m/1000.) * 10)[:-2]
-
-                # Review all folders in CPS Green's Function directory. Folder
-                # names correspond with depth of source. Find the folder
-                # with a value closest to the one we are after.
-                all_entries = listdir(self.CPS_database)
-
-                # Filter out folder names that are numeric
-                numeric_folder_names = [entry for entry in all_entries
-                                        if entry.isdigit() and isdir(join(self.CPS_database, entry))]
-
-                # Convert numeric folder names to integers
-                numeric_folder_names_int = [int(folder)
-                                            for folder in numeric_folder_names]
-
-                # Find depth closest to our desired value
-                dep_folder = numeric_folder_names[numeric_folder_names_int.index(min(numeric_folder_names_int,
-                                                                                     key=lambda x: abs(x - int(dep_desired))))]
-
-                dst_desired = "{:07.1f}".format(
-                    np.ceil(distance_in_m/1000.) * 10)[:-2]
-
-                directory_path = self.CPS_database + '/' + dep_folder
-                all_files = listdir(directory_path)
-                filenames_without_extensions_inline = [
-                    filename.split('.')[0] for filename in all_files]
-                filenames_without_letters = [filename for filename in filenames_without_extensions_inline if not any(
-                    char.isalpha() for char in filename)]
-                filenames_unique = [entry[:5]
-                                    for entry in list(set(filenames_without_letters))]
-                filenames_unique_int = [int(filename)
-                                        for filename in filenames_unique]
-                dst_value = filenames_unique[filenames_unique_int.index(
-                    min(filenames_unique_int, key=lambda x: abs(x - int(dst_desired))))]
-
-                sac_headers = obspy.read('%s/%s/%s/%s%s.ZDD' %
-                                         (self.CPS_database, self.CPS_model,
-                                          dep_folder, dst_value, dep_folder),
-                                         format='sac')[0].stats.sac
-
-                picks['P'] = sac_headers.a
-                picks['S'] = sac_headers.t0
+                raise NotImplemented
 
             elif self.pick_type == 'SAC_metadata':
                 sac_headers = traces[0].sac
