@@ -43,7 +43,7 @@ downloading Green's functions from remote [syngine](http://ds.iris.edu/ds/produc
 ### Misfit evaluation
 
 Waveform difference and cross-correlation time-shift [misfit evaluation](https://mtuqorg.github.io/mtuq/library/index.html#data-processing-and-inversion)
-on body-wave and surface-wave windows is implemented in C-accelerated Python.
+on body-wave and surface-wave windows is implemented in numba-accelerated Python.
 
 These misfit functions can be used with [mtuq.grid_search](https://mtuqorg.github.io/mtuq/library/generated/mtuq.grid_search.grid_search.html), which automatically partitions the grid over multiple MPI processes if invoked from an MPI environment.  For efficient and unbiased uncertainty quantification, [uniform grids](https://mtuqorg.github.io/mtuq/library/index.html#moment-tensor-and-force-grids) can be used for the grid search, drawing from [Tape2015](https://academic.oup.com/gji/article/202/3/2074/613765).
 

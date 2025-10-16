@@ -24,7 +24,7 @@ MTUQ installation on Apple M1, M2, and M3 Macs is now possible using the default
 Installation on Windows
 -----------------------
 
-MTUQ installation is not currently supported on Windows.  We invite users to contribute Windows portability fixes.
+MTUQ installation is not currently supported on Windows.  We invite users to contribute portability fixes.
 
 
 A common cause of installation errors on Unix systems
@@ -32,7 +32,7 @@ A common cause of installation errors on Unix systems
 
 On Unix systems, a non-writeable `/tmp` directory can cause the installation to fail in unexpected ways.  Such issues appear to originate from NumPy or conda, rather than MTUQ directly.
 
-Since NumPy and conda appear to respect the `TMPDIR` environment variable, a useful check can be to directory by set `TMPDIR` to a directory that exists and is writeable.
+Since NumPy and conda appear to respect the `TMPDIR` environment variable, a useful check can be to set `TMPDIR` to a directory that exists and is writeable.
 
 
 NumPy compatibility warnings
