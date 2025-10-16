@@ -14,7 +14,6 @@ description = "moment tensor (mt) uncertainty quantification (uq)"
 authors = [
   { name = "Ryan Modrak" }
 ]
-readme = ""  # you can add a README file path if you have one, e.g. "README.md"
 requires-python = ">=3"
 keywords = ["seismology"]
 classifiers = [
@@ -26,9 +25,7 @@ classifiers = [
   "Operating System :: Microsoft :: Windows",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: Implementation :: CPython",
   "Topic :: Scientific/Engineering",
-  "Topic :: Scientific/Engineering :: Physics",
 ]
 
 dependencies = [
@@ -76,7 +73,7 @@ packages = ["mtuq"]
 #"mtuq" = ["data/examples/*.tgz", "data/tests/*.tgz"]
 
 
-## support for Cython extensions in pyproject.toml remains experimental?
+##Cython support remains experimental?
 #[tool.setuptools.extension]
 # "mtuq.some_module" = { sources = ["mtuq/some_module.pyx"], extra_compile_args = [...] }
 

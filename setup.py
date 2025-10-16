@@ -14,9 +14,9 @@ try:
 
     ext_modules=cythonize(
         "mtuq/misfit/waveform/ext_cython.pyx",
-         compiler_directives={'language_level': "3"}),
-
-    include_dirs=[numpy.get_include()],
+        compiler_directives={'language_level': "3"},
+        include_dirs=[numpy.get_include()],
+        )
 
     setup(ext_modules=ext_modules, **setup_args)
 
