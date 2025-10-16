@@ -157,6 +157,6 @@ Low-level misfit modules
 ============================================================================================================  ============================================================================================================
 `mtuq.misfit.waveform.level0.misfit <generated/mtuq.misfit.waveform.level0.html>`_                             Easy-to-read pure Python implementation
 `mtuq.misfit.waveform.level1.misfit <generated/mtuq.misfit.waveform.level1.html>`_                             Fast pure Python implementation
-`mtuq.misfit.waveform.level2.misfit <generated/mtuq.misfit.waveform.level2.html>`_                             Fastest Python/C implementation
+`mtuq.misfit.waveform.level2.misfit <generated/mtuq.misfit.waveform.level2.html>`_                             Fastest Python/numba.jit implementation
 ============================================================================================================  ============================================================================================================
 

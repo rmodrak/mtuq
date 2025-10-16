@@ -57,6 +57,6 @@ Support for other file formats can be added through a `plug-in system <https://m
 More information
 ----------------
 
-For SAC files downloaded from FDSN data providers, the above requirements are usually already satisfied. In other cases, substantial user effort may be needed.  `Detailed notes <https://mtuqorg.github.io/mtuq/user_guide/02/notes.html>`_ are being drafted to try to help.
+Additional documentation relavant to special, cases such as synthetic inversions,  non-standard time conventions, and non-standard geographic coordinate systems, is currently  `under construction <https://mtuqorg.github.io/mtuq/user_guide/02/notes.html>`_.
 
 
