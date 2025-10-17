@@ -36,8 +36,11 @@ def plot_waveforms1(
 
     """ Creates data/synthetics comparison figure with 3 columns (Z, R, T)
     """
-    if _isempty(data):
-        raise Exception
+    if data is None:
+        data = Null()
+
+    if synthetics is None:
+        synthetics = Null()
 
     # how many stations have at least one trace?
     nrows = _count(data, synthetics)
@@ -106,6 +109,17 @@ def plot_waveforms2(
     """ Creates data/synthetics comparison figure with 5 columns 
    (Pn Z, Pn R, Rayleigh Z, Rayleigh R, Love T)
     """
+    if data_bw is None:
+        data_bw = Null()
+
+    if data_sw is None:
+        data_sw = Null()
+
+    if synthetics_bw is None:
+        synthetics_bw = Null()
+
+    if synthetics_sw is None:
+        synthetics_sw = Null()
 
     # how many stations have at least one trace?
     nrows = _count(data_bw, data_sw, synthetics_bw, synthetics_bw)
@@ -182,6 +196,23 @@ def plot_waveforms3(
     """ Creates data/synthetics comparison figure with 5 columns 
     (Pn Z, Pn R, Rayleigh Z, Rayleigh R, Love T)
     """
+    if data_bw is None: 
+        data_bw = Null()
+
+    if data_rayl is None: 
+        data_rayl = Null()
+
+    if data_love is None:
+        data_love = Null()
+
+    if synthetics_bw is None:
+        synthetics_bw = Null()
+
+    if synthetics_rayl is None:
+        synthetics_rayl = Null()
+
+    if synthetics_love is None:
+        synthetics_love = Null()
 
     # how many stations have at least one trace?
     nrows = _count(data_bw, data_rayl, data_love)
@@ -647,6 +678,8 @@ def _time_series(trace):
 
 
 def _count(*datasets):
+    datasets = filter(lambda x: x is not None, datasets)
+
     # counts number of nonempty streams in dataset(s)
     count = 0
     for streams in zip(*datasets):
