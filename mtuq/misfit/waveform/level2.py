@@ -6,6 +6,8 @@ See ``mtuq/misfit/waveform/__init__.py`` for more information
 
 import numpy as np
 import time
+import warnings
+
 from copy import deepcopy
 from mtuq.misfit.waveform._stats import _flatten, calculate_norm_data
 from mtuq.misfit.waveform.level1 import correlate
@@ -218,8 +220,8 @@ def _get_weights(data, stations, components):
             if len(stream) > 0:
                 try:
                     weights[_i, _j] = stream[0].attrs.weight
-                except:
-                    print('Error reading user-suppled data weight')
+                except AttributeError as e:
+                    #warnings.warn('Weight not attached', UserWarning)
                     weights[_i, _j] = 1.
             else:
                 weights[_i, _j] = 0.
